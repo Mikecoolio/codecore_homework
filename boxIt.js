@@ -8,7 +8,7 @@ let rightMiddle = '\u252B'
 let verticalLine = '\u2503'
 let captureUserInput = process.argv
 
-
+console.log("captureUserInput", captureUserInput.length)
 function drawLine(num) {
     let combinedLine = ''
     for (let i = 0; i < num; i++) {
@@ -85,16 +85,22 @@ function boxIt(arrOfStr) {
 console.log(boxIt(['Jon Snow', 'Cersei Lannister']))
 
 
-function captureInput() {
+function captureInput(processArr) {
     let userInputArr = []
-    for (i = 2; i < captureUserInput.length; i++) {
-        if (captureUserInput[i] != [] || undefined) {
-            console.log(captureUserInput[i])
-            userInputArr.push(captureUserInput[i])
-            console.log("userInputArr", userInputArr)
+    if (processArr.length <= 3 || processArr.length === undefined) {
+        let noMiddle = drawTopBorder(0) + `\n` + drawBottomBorder(0)
+        console.log(noMiddle)
+    } else {
+        for (i = 2; i < captureUserInput.length; i++) {
+            if (captureUserInput[i] != [] || undefined) {
+                console.log(captureUserInput[i])
+                userInputArr.push(captureUserInput[i])
+                console.log("userInputArr", userInputArr)
+            }
         }
     }
+
     boxIt(userInputArr)
 }
 
-captureInput()
+captureInput(captureUserInput)

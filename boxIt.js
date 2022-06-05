@@ -3,11 +3,7 @@ let topRightCorner = '\u2513'
 let topLeftCorner = '\u250F' 
 let bottomLeftCorner = '\u2517'
 let bottomRightCorner = '\u251B' 
-let leftMiddle = '\u2523'
-let rightMiddle = '\u252B'
 let verticalLine = '\u2503'
-let captureUserInput = process.argv
-
 
 function drawLine(num) {
     let combinedLine = ''
@@ -19,82 +15,53 @@ function drawLine(num) {
 
 console.log("horizontal lines", drawLine(8))
 
+/* 
+Write three functions: drawTopBorder, drawMiddleBorder and drawBottomBorder. 
+Each function should take a number, return a line of length includingcorner pieces. 
+You can make use of drawLine to implement these functions.
 
+
+
+Example usage:
+
+
+
+drawTopBorder(4) // returns '┏━━━━┓'
+drawTopBorder(0) // returns '┏┓'
+
+
+drawMiddleBorder(8) // returns '┣━━━━━━━━━┫'
+drawMiddleBorder(0) // returns '┣┫'
+
+
+drawBottomBorder(2) // returns '┗━━┛' 
+*/
 
 function drawTopBorder(num) {
     let finishedTopBorder = ''
     if (num === 0) {
-        return finishedTopBorder += topLeftCorner + topRightCorner
+        return finishedTopBorder += '\u250F' + '\u2513'
     } else {
-         return finishedTopBorder += topLeftCorner + drawLine(num) + topRightCorner
+         return finishedTopBorder += '\u250F' + drawLine(num) + '\u2513'
     }
 }
 
-console.log("top border", drawTopBorder(0))
 console.log("top border", drawTopBorder(4))
-
-
 
 function drawMiddleBorder(num) {
     let finishedMiddleBorder = ''
-    if (num === 0) {
-        return finishedMiddleBorder += leftMiddle + rightMiddle
-    } else {
-         return finishedMiddleBorder += leftMiddle + drawLine(num) + rightMiddle
-    }
+    
 }
 
-console.log('middle border', drawMiddleBorder(0))
-console.log('middle border', drawMiddleBorder(8))
-
-
+console.log('middle border', drawMiddleBorder)
 
 function drawBottomBorder(num) {
     let finishedBottomBorder = ''
     if (num === 0) {
-        return finishedBottomBorder += bottomLeftCorner + bottomRightCorner
+        return finishedBottomBorder += '\u2517' + '\u251B'
     } else {
-         return finishedBottomBorder += bottomLeftCorner + drawLine(num) + bottomRightCorner
+         return finishedBottomBorder += '\u2517' + drawLine(num) + '\u251B'
     }
 }
 
 console.log("bottom border", drawBottomBorder(2))
-
-
-
-function drawBarsAroud(str) {
-    return verticalLine + str + verticalLine
-}
-
-console.log(drawBarsAroud("My name is Dan"))
-console.log(drawBarsAroud("You are Jane  "))
-console.log(drawBarsAroud("  You are Bill"))
-
-
-
-function boxIt(arrOfStr) {
-    let completedBox = ''
-
-    for (i = 0; i < arrOfStr.length; i++) {
-        //console.log(drawBarsAroud(arrOfStr[i]))
-        console.log(drawTopBorder(arrOfStr[i].length) + `\n` + drawBarsAroud(arrOfStr[i]) + `\n` + drawBottomBorder(arrOfStr[i].length))
-    }
-    return completedBox
-}
-
-console.log(boxIt(['Jon Snow', 'Cersei Lannister']))
-
-
-function captureInput() {
-    let userInputArr = []
-    for (i = 2; i < captureUserInput.length; i++) {
-        if (captureUserInput[i] != [] || undefined) {
-            console.log(captureUserInput[i])
-            userInputArr.push(captureUserInput[i])
-            console.log("userInputArr", userInputArr)
-        }
-    }
-    boxIt(userInputArr)
-}
-
-captureInput()

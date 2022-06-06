@@ -1,14 +1,14 @@
 #! /usr/bin/env node
 
-let horizontalLine = '\u2501'
-let topRightCorner = '\u2513'
-let topLeftCorner = '\u250F' 
-let bottomLeftCorner = '\u2517'
-let bottomRightCorner = '\u251B' 
-let leftMiddle = '\u2523'
-let rightMiddle = '\u252B'
-let verticalLine = '\u2503'
-let captureUserInput = process.argv
+const horizontalLine = '\u2501'
+const topRightCorner = '\u2513'
+const topLeftCorner = '\u250F' 
+const bottomLeftCorner = '\u2517'
+const bottomRightCorner = '\u251B' 
+const leftMiddle = '\u2523'
+const rightMiddle = '\u252B'
+const verticalLine = '\u2503'
+const captureUserInput = process.argv
 
 //console.log("captureUserInput", captureUserInput, captureUserInput.length)
 
@@ -22,8 +22,6 @@ function drawLine(num) {
 
 //console.log("horizontal lines", drawLine(8))
 
-
-
 function drawTopBorder(num) {
     let finishedTopBorder = ''
     if (num === 0) {
@@ -35,8 +33,6 @@ function drawTopBorder(num) {
 
 //console.log("top border", drawTopBorder(0))
 //console.log("top border", drawTopBorder(4))
-
-
 
 function drawMiddleBorder(num) {
     let finishedMiddleBorder = ''
@@ -50,8 +46,6 @@ function drawMiddleBorder(num) {
 //console.log('middle border', drawMiddleBorder(0))
 //console.log('middle border', drawMiddleBorder(8))
 
-
-
 function drawBottomBorder(num) {
     let finishedBottomBorder = ''
     if (num === 0) {
@@ -63,8 +57,6 @@ function drawBottomBorder(num) {
 
 //console.log("bottom border", drawBottomBorder(2))
 
-
-
 function drawBarsAroud(str) {
     return verticalLine + str + verticalLine
 }
@@ -72,8 +64,6 @@ function drawBarsAroud(str) {
 //console.log(drawBarsAroud("My name is Dan"))
 //console.log(drawBarsAroud("You are Jane  "))
 //console.log(drawBarsAroud("  You are Bill"))
-
-
 
 function boxIt(arrOfStr) {
     let completedBox = ''
@@ -102,7 +92,6 @@ function captureInput(processArr) {
             }
         }
     }
-
     boxIt(userInputArr)
 }
 

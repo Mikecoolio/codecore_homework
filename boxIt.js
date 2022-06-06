@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 let horizontalLine = '\u2501'
 let topRightCorner = '\u2513'
 let topLeftCorner = '\u250F' 
@@ -76,13 +78,13 @@ function boxIt(arrOfStr) {
     let completedBox = ''
 
     for (i = 0; i < arrOfStr.length; i++) {
-        //console.log(drawBarsAroud(arrOfStr[i]))
-        console.log(drawTopBorder(arrOfStr[i].length) + `\n` + drawBarsAroud(arrOfStr[i]) + `\n` + drawBottomBorder(arrOfStr[i].length))
+        completedBox = drawTopBorder(arrOfStr[i].length) + `\n` + drawBarsAroud(arrOfStr[i]) + `\n` + drawBottomBorder(arrOfStr[i].length)
+        console.log(completedBox)
     }
     return completedBox
 }
 
-console.log(boxIt(['Jon Snow', 'Cersei Lannister']))
+//console.log(boxIt(['Jon Snow', 'Cersei Lannister']))
 
 
 function captureInput(processArr) {

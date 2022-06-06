@@ -8,9 +8,7 @@ const bottomRightCorner = '\u251B'
 const leftMiddle = '\u2523'
 const rightMiddle = '\u252B'
 const verticalLine = '\u2503'
-const captureUserInput = process.argv
-
-//console.log("captureUserInput", captureUserInput, captureUserInput.length)
+const capturedUserInput = process.argv
 
 function drawLine(num) {
     let combinedLine = ''
@@ -19,8 +17,6 @@ function drawLine(num) {
     }
     return combinedLine
 }
-
-//console.log("horizontal lines", drawLine(8))
 
 function drawTopBorder(num) {
     let finishedTopBorder = ''
@@ -31,9 +27,6 @@ function drawTopBorder(num) {
     }
 }
 
-//console.log("top border", drawTopBorder(0))
-//console.log("top border", drawTopBorder(4))
-
 function drawMiddleBorder(num) {
     let finishedMiddleBorder = ''
     if (num === 0) {
@@ -42,9 +35,6 @@ function drawMiddleBorder(num) {
          return finishedMiddleBorder += leftMiddle + drawLine(num) + rightMiddle
     }
 }
-
-//console.log('middle border', drawMiddleBorder(0))
-//console.log('middle border', drawMiddleBorder(8))
 
 function drawBottomBorder(num) {
     let finishedBottomBorder = ''
@@ -55,15 +45,9 @@ function drawBottomBorder(num) {
     }
 }
 
-//console.log("bottom border", drawBottomBorder(2))
-
 function drawBarsAroud(str) {
     return verticalLine + str + verticalLine
 }
-
-//console.log(drawBarsAroud("My name is Dan"))
-//console.log(drawBarsAroud("You are Jane  "))
-//console.log(drawBarsAroud("  You are Bill"))
 
 function boxIt(arrOfStr) {
     let completedBox = ''
@@ -75,26 +59,21 @@ function boxIt(arrOfStr) {
     return completedBox
 }
 
-//console.log(boxIt(['Jon Snow', 'Cersei Lannister']))
-
-
-function captureInput(processArr) {
+function handleUserInput(processArr) {
     let userInputArr = []
-    if (processArr.length <= 2 || processArr.length === undefined) {
+    if (processArr.length <= 2) {
         let noMiddle = drawTopBorder(0) + `\n` + drawBottomBorder(0)
         console.log(noMiddle)
     } else {
-        for (i = 2; i < captureUserInput.length; i++) {
-            if (captureUserInput[i] != [] || undefined) {
-                console.log("captureUserInput[i]", captureUserInput[i])
-                userInputArr.push(captureUserInput[i])
-                console.log("userInputArr", userInputArr)
+        for (i = 2; i < capturedUserInput.length; i++) {
+            if (capturedUserInput[i] != undefined) {
+                userInputArr.push(capturedUserInput[i])
             }
         }
     }
     boxIt(userInputArr)
 }
 
-captureInput(captureUserInput)
+handleUserInput(capturedUserInput)
 
 

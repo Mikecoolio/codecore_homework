@@ -45,7 +45,7 @@ function drawBottomBorder(num) {
     }
 }
 
-function drawBarsAroud(str) {
+function drawBarsAround(str) {
     return verticalLine + str + verticalLine
 }
 

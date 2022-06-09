@@ -53,7 +53,7 @@ function boxIt(arrOfStr) {
     let completedBox = ''
 
     for (i = 0; i < arrOfStr.length; i++) {
-        completedBox = drawTopBorder(arrOfStr[i].length) + `\n` + drawBarsAroud(arrOfStr[i]) + `\n` + drawBottomBorder(arrOfStr[i].length)
+        completedBox = drawTopBorder(arrOfStr[i].length) + `\n` + drawBarsAround(arrOfStr[i]) + `\n` + drawBottomBorder(arrOfStr[i].length)
         console.log(completedBox)
     }
     return completedBox

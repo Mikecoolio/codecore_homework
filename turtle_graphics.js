@@ -40,9 +40,16 @@ class Turtle {
     }
 
     right() {
-        console.log(`current value for x: ${this.x} and y: ${this.y}: `, this.x, this.y)
-        console.log("moved one spot to the right (represent with newline)")
+        console.log(`current value for x: ${this.x} and y: ${this.y}: `)
+        // console.log("moved one spot to the right (represent with newline)")
         
+        if (this.x === 0) {
+            console.log("moved right on the Y axis, facing X axis")
+        } else if (this.y === 0) {
+            console.log("moved forward on the X axis, turning right on the Y axis, facing Y axis")
+        }
+
+        // face direction 
         return this
     }
 }
@@ -51,3 +58,5 @@ class Turtle {
 
 //let newTurtle = new Turtle(0, 0)
 let moveForward = new Turtle(0, 0).forward(3).right()
+
+// MAYBE CREATE 10 X 10 GRID FIRST

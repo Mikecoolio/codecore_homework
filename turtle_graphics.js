@@ -41,7 +41,7 @@ class Turtle {
 
     right() {
         console.log(`current value for x: ${this.x} and y: ${this.y}: `)
-        // console.log("moved one spot to the right (represent with newline)")
+        // console.log("moved one spot to the right (represent with newline?)")
         
         if (this.x === 0) {
             console.log("moved right on the Y axis, facing X axis")
@@ -54,9 +54,26 @@ class Turtle {
     }
 }
 
+function createGrid() {
+    let width = 10
+    let height = 10
+    let grid = ''
+    let rows = ''
+    let columns = ''
 
+    for (let i=0; i<width; i++) {
+        rows = rows + box + " "
+    }
+
+    for (let a=0; a<height; a++) {
+        columns = rows + "\n"
+        grid = columns.repeat(height)
+    }
+    console.log(grid)
+}
 
 //let newTurtle = new Turtle(0, 0)
-let moveForward = new Turtle(0, 0).forward(3).right()
+//let moveForward = new Turtle(0, 0).forward(3).right()
 
 // MAYBE CREATE 10 X 10 GRID FIRST
+createGrid()

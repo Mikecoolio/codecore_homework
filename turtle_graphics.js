@@ -1,5 +1,7 @@
 const box = '\u25A2' // box representation
 let grid = ''
+let recordPositions = []
+let allPositions = []
 
 class Turtle {
     constructor(x, y) {
@@ -26,12 +28,19 @@ class Turtle {
         if (this.x === 0) {
             this.x = this.x + steps
         }
-        console.log("updated x co-ordinates", steps)
+
+        let k = this.x
+        let v = this.y
+        recordPositions = [k,v]
+        console.log("recordPositions", recordPositions)
+
+        allPositions.push(recordPositions)
+        console.log("allPositions", allPositions)
         return this
     }
 
     right() {
-        console.log("current value for x and y: ", this.x, this.y)
+        console.log(`current value for x: ${this.x} and y: ${this.y}: `, this.x, this.y)
         console.log("moved one spot to the right (represent with newline)")
         
         return this

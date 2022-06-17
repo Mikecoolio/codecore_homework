@@ -42,8 +42,8 @@ class Turtle {
                 maxNumX = yCoord[i]
             }
         }
-        console.log("maxNumY: ", maxNumY)
-        // return [maxX, maxY]
+        console.log("maxNumY: ", maxNumY)   
+        return [maxNumX, maxNumY]
     }
 
 
@@ -127,8 +127,8 @@ class Turtle {
     print() {
         let maxNum = this.findMax(this.allPositions)
         // USE A NESTED FOR LOOP IN ORDER TO ITERATE THROUGH 2 ARRAYS
-        console.log("maxNum inside print() ", maxNum)
-        // for (i=0; i<maxNum; i++) {
+        console.log("maxNum inside print() ", maxNum) // ex. [3,7] // NEED NESTED 2 NESTED FOR LOOPS TO ITERATE THROUGH 2D ARRAY    
+        for (i=0; i<maxNum; i++) {
         return this
         // }
     }

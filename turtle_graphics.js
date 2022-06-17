@@ -9,6 +9,45 @@ class Turtle {
         this.allPositions = [[this.x, this.y]] // Array must be initialized in the contructor, for the point pair arrays to be added persistently
     }
 
+    findMax(twoDArr) {
+        let xCoord = []
+        let yCoord = []
+
+        console.log("twoDArr: ", twoDArr)
+        let twoDArrFlat = twoDArr.flat()
+        for (let i = 0; i < twoDArr.length; i++) {
+            if (i % 2 === 0) {
+                let poppedOddIndexs = twoDArrFlat.pop(twoDArrFlat[i])
+                yCoord.push(poppedOddIndexs)
+            } else {
+                let poppedEvenIndexs = twoDArrFlat.pop(twoDArrFlat[i])
+                xCoord.push(poppedEvenIndexs)
+            }
+        }
+        console.log("ycoord", yCoord)
+        console.log("xcoord", xCoord)
+
+        let maxNumX = xCoord[0]
+        let maxNumY = yCoord[0]
+
+        for (let i = 1; i < xCoord.length; i++) {
+            if (xCoord[i] > maxNumX) {
+                maxNumX = xCoord[i]
+            }
+        }
+        console.log("maxNumX: ", maxNumX)
+
+        for (let i = 1; i < yCoord.length; i++) {
+            if (yCoord[i] > maxNumY) {
+                maxNumX = yCoord[i]
+            }
+        }
+        console.log("maxNumY: ", maxNumY)
+        // return [maxX, maxY]
+    }
+
+
+
     compass() { // SWITCH STATEMENT FOR COMPASS NOT NEEDED, JUST POINT TO this.currentDirection because all this does is point to the
         //         default direction that the turtle is facing at the start of the program.
         return this.direction
@@ -32,7 +71,7 @@ class Turtle {
                 this.y -= 1;
             }
             recordPositions = [this.x, this.y]
-            console.log("recordPositions", recordPositions)
+            // console.log("recordPositions", recordPositions)
     
             this.allPositions.push(recordPositions)
         }
@@ -86,57 +125,22 @@ class Turtle {
     }
 
     print() {
-        maxNum  = findMax(arrOfArrs)
-        // xMaxNum = findMaxNumber(xArr)
-        // yMaxNum = findMaxNumber(yArr)
-
+        let maxNum = this.findMax(this.allPositions)
+        // USE A NESTED FOR LOOP IN ORDER TO ITERATE THROUGH 2 ARRAYS
+        console.log("maxNum inside print() ", maxNum)
+        // for (i=0; i<maxNum; i++) {
+        return this
+        // }
     }
 }
-
-let arrOfArrs = [[ 0, 4 ], [ 1, 4 ], [ 2, 4 ], [ 3, 4 ], [ 3, 5 ], [ 3, 6 ],
-[ 3, 7 ]]
-
-console.log("arrOfArrs length: ", arrOfArrs.flat())
-
-function findMax() {
-    let xCoord = []
-    let yCoord = []
-
-    arrOfArrs = arrOfArrs.flat()
-    for (let i = 0; i < arrOfArrs.length; i++) {
-        if (i % 2 === 0) {
-            let poppedOddIndexs = arrOfArrs.pop(arrOfArrs[i])
-            yCoord.push(poppedOddIndexs)
-        } else {
-            let poppedEvenIndexs = arrOfArrs.pop(arrOfArrs[i])
-            xCoord.push(poppedEvenIndexs)
-        }
-    }
-    console.log("ARROFAARRRS", arrOfArrs)
-    console.log("xCoord: ", xCoord)
-    console.log("yCoord: ", yCoord)
-
-    console.log("max number from left side: ", findMaxNumber(xCoord))
-    console.log("max number from right side :", findMaxNumber(yCoord))
-}
-
-
-function findMaxNumber(arr) {
-    maxNum = arr[0]
-    for (i = 1; i < arr.length; i++) {
-        if (arr[i] > maxNum) {
-            maxNum = arr[i]
-        }
-    }
-    return maxNum
-}
-
-findMax()
-
-// // let move = new Turtle(0, 0).forward(3).right().forward(2);
-// let move = new Turtle(0, 4).forward(3).left().forward(3);
-// // console.log(move)
+// let move = new Turtle(0, 0).forward(3).right().forward(2);
+let move = new Turtle(0, 4).forward(3).left().forward(3);
+console.log("print(): ", move.print())
 // console.log("allPositions: ", move.positions())
+
+
+
+
 
 
 // MAYBE CREATE 10 X 10 GRID FIRST

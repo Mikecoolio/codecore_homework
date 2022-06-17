@@ -30,13 +30,13 @@ class Turtle {
             } else if (currentDirection === 'down') { 
                 this.y -= 1;
             }
+            recordPositions = [this.x, this.y]
+            console.log("recordPositions", recordPositions)
+    
+            this.allPositions.push(recordPositions)
         }
         // SWITCH STATEMENT DOES NOT WORK INSIDE LOOPS, IT EVALUATES THE FIRST CASE THAT MATCHES THE VALUE OF THE VARIABLE THAT IS IN THE SWITCH STATEMENT
-        
-        recordPositions = [this.x, this.y]
-        console.log("recordPositions", recordPositions)
-
-        this.allPositions.push(recordPositions)
+    
         return this
     }
 

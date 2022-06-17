@@ -10,17 +10,8 @@ class Turtle {
         this.direction = "right"; // default is facing right along the X axis
     }
 
-    compass(facing = this.direction) {
-        switch (facing) {
-            case 'up':
-                return 'up';
-            case 'down':
-                return 'down';
-            case 'left':
-                return 'left';
-            case 'right': 
-                return 'right';
-        }
+    compass() { // SWITCH STATEMENT FOR COMPASS NOT NEEDED, JUST POINT TO this.currentDirection
+        return this.direction
     }
 
     forward(steps) {
@@ -53,16 +44,22 @@ class Turtle {
     }
 
     right() {
-        console.log(`current value for x: ${this.x} and y: ${this.y}: `)
-        // console.log("moved one spot to the right (represent with newline?)")
-        
-        if (this.x === 0) {
-            console.log("moved right on the Y axis, facing X axis")
-        } else if (this.y === 0) {
-            console.log("moved forward on the X axis, turning right on the Y axis, facing Y axis")
-        }
+        if (this.direction === 'right') {
+            console.log("turn down");
+            this.direction = 'down';
 
-        // face direction 
+        } else if (this.direction === 'left') {
+            console.log("turn up");
+            this.direction = 'left';
+
+        } else if (this.direction === 'top') {
+            console.log('turn right');
+            this.direction = 'top';
+
+        } else if (this.direction === 'bottom') { 
+            console.log('turn left');
+            this.direction = 'bottom';
+        }
         return this
     }
 }

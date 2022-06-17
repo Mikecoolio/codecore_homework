@@ -28,15 +28,20 @@ class Turtle {
         // MUST CHECK DIRECTION BEFORE KNOWING WHERE TO MOVE
         let currentDirection = this.compass()
         console.log("the current direction is: ", currentDirection)
-        for (let i=0; i<steps; i++) { // Must add to move forward, maybe minus to move backward?
-            if (currentDirection === 'right') {
+
+        for (let i=0; i<steps; i++) {
+            if (currentDirection === 'right') { // Must add to move forward, maybe minus to move backward?
                 this.x += 1;
+            } else if (currentDirection === 'left') { // subtracting when movement is left means minusing x (reverse of 'right')
+                this.x -= 1;
+            } else if (currentDirection === 'top') {// reverse of 'bottom'
+                this.y += 1;
+            } else if (currentDirection === 'bottom') { 
+                this.y -= 1;
             }
         }
-
-
-        // HOW TO KNOW HOW MUCH TO ADD TO X AND Y AND WHICH ONE TO ADD?
-        // TRY TO MAKE ANOTHER SWITCH STATEMENT?
+        // SWITCH STATEMENT DOES NOT WORK INSIDE LOOPS, IT EVALUATES THE FIRST CASE THAT MATCHES THE VALUE OF THE VARIABLE THAT IS IN THE SWITCH STATEMENT
+        
         let k = this.x
         let v = this.y
         recordPositions = [k,v]
@@ -62,7 +67,7 @@ class Turtle {
     }
 }
 
-let move = new Turtle(0, 0).forward(3) //.forward(3).right()
+let move = new Turtle(0, 0).forward(3).right()
 console.log(move)
 // MAYBE CREATE 10 X 10 GRID FIRST
 

@@ -7,28 +7,36 @@ class Turtle {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        // this.startingPosition(this.x, this.y);
+        this.direction = "right"; // default is facing right along the X axis
     }
 
-    // startingPosition(x, y) {
-    //     console.log(`x: ${this.x + x}, y: ${this.y + y}`)
-    //     return this
-    // }
+    compass(facing = this.direction) {
+        switch (facing) {
+            case 'up':
+                return 'up';
+            case 'down':
+                return 'down';
+            case 'left':
+                return 'left';
+            case 'right': 
+                return 'right';
+        }
+    }
 
     forward(steps) {
-        // console.log(`moved ${steps} along the X axis.  
-        // Turtle moved starting from position ${this.x} on the X axis, ${steps} steps to the right along the X axis.
-        // The current position for the Turtle on the X axis is ${this.x + steps}`)
-
-        for (let i=0; i<steps; i++) {
-            grid = grid + " " + box
-        }
-        console.log("grid: ", grid)
-
-        if (this.x === 0) {
-            this.x = this.x + steps
+        // NEED TO THINK OF WAY TO KNOW DIRECTION OF MOVEMENT
+        // MUST CHECK DIRECTION BEFORE KNOWING WHERE TO MOVE
+        let currentDirection = this.compass()
+        console.log("the current direction is: ", currentDirection)
+        for (let i=0; i<steps; i++) { // Must add to move forward, maybe minus to move backward?
+            if (currentDirection === 'right') {
+                this.x += 1;
+            }
         }
 
+
+        // HOW TO KNOW HOW MUCH TO ADD TO X AND Y AND WHICH ONE TO ADD?
+        // TRY TO MAKE ANOTHER SWITCH STATEMENT?
         let k = this.x
         let v = this.y
         recordPositions = [k,v]
@@ -54,26 +62,30 @@ class Turtle {
     }
 }
 
-function createGrid() {
-    let width = 10
-    let height = 10
-    let grid = ''
-    let rows = ''
-    let columns = ''
-
-    for (let i=0; i<width; i++) {
-        rows = rows + box + " "
-    }
-
-    for (let a=0; a<height; a++) {
-        columns = rows + "\n"
-        grid = columns.repeat(height)
-    }
-    console.log(grid)
-}
-
-//let newTurtle = new Turtle(0, 0)
-//let moveForward = new Turtle(0, 0).forward(3).right()
-
+let move = new Turtle(0, 0).forward(3) //.forward(3).right()
+console.log(move)
 // MAYBE CREATE 10 X 10 GRID FIRST
-createGrid()
+
+// for (let i=0; i<steps; i++) {
+//     grid = grid + " " + box
+// }
+// console.log("grid: ", grid)
+
+// function createGrid() {
+//     let width = 10
+//     let height = 10
+//     let grid = ''
+//     let rows = ''
+//     let columns = ''
+
+//     for (let i=0; i<width; i++) {
+//         rows = rows + box + " "
+//     }
+
+//     for (let a=0; a<height; a++) {
+//         columns = rows + "\n"
+//         grid = columns.repeat(height)
+//     }
+//     console.log(grid)
+// }
+// createGrid()

@@ -1,5 +1,7 @@
 const box = '\u25A2' // box representation
 let grid = ''
+const blackBox = "\u25A0" // black box representation
+let testBlackBoxRow = ''
 
 class Turtle {
     constructor(x, y) {
@@ -13,7 +15,7 @@ class Turtle {
         let xCoord = []
         let yCoord = []
 
-        console.log("twoDArr: ", twoDArr)
+        // console.log("twoDArr: ", twoDArr)
         let twoDArrFlat = twoDArr.flat()
         for (let i = 0; i < twoDArr.length; i++) {
             if (i % 2 === 0) {
@@ -24,8 +26,8 @@ class Turtle {
                 xCoord.push(poppedEvenIndexs)
             }
         }
-        console.log("ycoord", yCoord)
-        console.log("xcoord", xCoord)
+        // console.log("ycoord", yCoord)
+        // console.log("xcoord", xCoord)
 
         let maxNumX = xCoord[0]
         let maxNumY = yCoord[0]
@@ -35,14 +37,14 @@ class Turtle {
                 maxNumX = xCoord[i]
             }
         }
-        console.log("maxNumX: ", maxNumX)
+        // console.log("maxNumX: ", maxNumX)
 
         for (let i = 1; i < yCoord.length; i++) {
             if (yCoord[i] > maxNumY) {
                 maxNumX = yCoord[i]
             }
         }
-        console.log("maxNumY: ", maxNumY)   
+        // console.log("maxNumY: ", maxNumY)   
         return [maxNumX, maxNumY]
     }
 
@@ -127,18 +129,44 @@ class Turtle {
     print() {
         let maxNum = this.findMax(this.allPositions)
         // USE A NESTED FOR LOOP IN ORDER TO ITERATE THROUGH 2 ARRAYS
-        console.log("maxNum inside print() ", maxNum) // ex. [3,7] // NEED NESTED 2 NESTED FOR LOOPS TO ITERATE THROUGH 2D ARRAY    
-        for (i=0; i<maxNum; i++) {
+        console.log("maxNum inside print() ", this.findMax(this.allPositions)) // ex. [3,7] // NEED NESTED 2 NESTED FOR LOOPS TO ITERATE THROUGH 2D ARRAY AND CREATE GRID TO REPRESENT 2d ARRAY????   
+        let maxNumXCoord = maxNum[0]
+        let maxNumYCoord = maxNum[1]
+
+        console.log("max X coords :", maxNumXCoord)
+        console.log("max Y coords :", maxNumYCoord)
+        console.log("TYPE OF X, Y COORDS: ", typeof maxNumXCoord)
+
+        for (let y=0; y<=maxNumYCoord; y++) { 
+            for (let x=0; x<=maxNumXCoord; x++) {
+                // MAYBE TRY CONCATENATING BOXES AND TEST IT OUT
+                console.log("x: ", x)
+                testBlackBoxRow += blackBox 
+                 // this creates a zigzag pyramid unfortunately
+                 // TRY TO ITERATE THROUGH ALL X POSITIONS, AND THEN TURN DIRECTION AND PUT A NEWLINE FOR EACH Y ELEMENT?
+            }          
+            /*
+            print():  Turtle {
+  x: 3,
+  y: 7,
+  direction: 'top',
+  allPositions: [
+    [ 0, 4 ], [ 1, 4 ],
+    [ 2, 4 ], [ 3, 4 ],
+    [ 3, 5 ], [ 3, 6 ],
+    [ 3, 7 ]
+  ]
+}*/                 // I THINK Y SHOULD BE OUTER ARRAY, IT WILL TAKE THE NEWLINE AND GO UP AND DOWN, X WILL NOT TAKE NEWLINE AND STAY HORIZONTAL!
+        }           // MAYBE IT IS SOMETHING TO DO WITH ALLPOSITIONS, I MUST GO THROUGH EVERY POSITION THE TURTLE HAS TRAVELLED.  ---------
         return this
-        // }
     }
 }
 // let move = new Turtle(0, 0).forward(3).right().forward(2);
-let move = new Turtle(0, 4).forward(3).left().forward(3);
-console.log("print(): ", move.print())
+
 // console.log("allPositions: ", move.positions())
 
-
+let move = new Turtle(0, 4).forward(3).left().forward(3);
+console.log("print(): ", move.print())
 
 
 

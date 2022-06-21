@@ -15,7 +15,6 @@ class Turtle {
         let xCoord = []
         let yCoord = []
 
-        // console.log("twoDArr: ", twoDArr)
         let twoDArrFlat = twoDArr.flat()
         for (let i = 0; i < twoDArr.length; i++) {
             if (i % 2 === 0) {
@@ -26,25 +25,26 @@ class Turtle {
                 xCoord.push(poppedEvenIndexs)
             }
         }
-        // console.log("ycoord", yCoord)
-        // console.log("xcoord", xCoord)
 
         let maxNumX = xCoord[0]
-        let maxNumY = yCoord[0]
+        let maxNumY = yCoord[0]  
+        // This for loop turns the negative values within the yCoord array, into positive values without destroying the array structure
+        for (let y = 0; y < yCoord.length; y++) { 
+            yCoord[y] = Math.abs(yCoord[y])
+        }
 
         for (let i = 1; i < xCoord.length; i++) {
             if (xCoord[i] > maxNumX) {
                 maxNumX = xCoord[i]
             }
         }
-        // console.log("maxNumX: ", maxNumX)
 
-        for (let i = 1; i < yCoord.length; i++) {
-            if (yCoord[i] > maxNumY) {
-                maxNumX = yCoord[i]
+        for (let a = 1; a < yCoord.length; a++) {
+            if (yCoord[a] > maxNumY) {
+                maxNumY = yCoord[a]
             }
         }
-        // console.log("maxNumY: ", maxNumY)   
+        console.log("maxNumY: ", maxNumY)   
         return [maxNumX, maxNumY]
     }
 
@@ -67,7 +67,7 @@ class Turtle {
                 this.x += 1;
             } else if (currentDirection === 'left') { // subtracting when movement is left means minusing x (reverse of 'right')
                 this.x -= 1;
-            } else if (currentDirection === 'top') {// reverse of 'bottom'
+            } else if (currentDirection === 'up') {// reverse of 'bottom'
                 this.y += 1;
             } else if (currentDirection === 'down') { 
                 this.y -= 1;
@@ -84,19 +84,19 @@ class Turtle {
 
     right() {
         if (this.direction === 'right') {
-            console.log("turning down");
+            console.log("facing down from right");
             this.direction = 'down';
 
         } else if (this.direction === 'left') {
-            console.log("turning up");
-            this.direction = 'top';
+            console.log("facing up from left");
+            this.direction = 'up';
 
-        } else if (this.direction === 'top') {
-            console.log('turning right');
+        } else if (this.direction === 'up') {
+            console.log('facing right from up');
             this.direction = 'right';
 
         } else if (this.direction === 'down') { 
-            console.log('turning left');
+            console.log('facing left from down');
             this.direction = 'left';
         }
         return this
@@ -104,19 +104,19 @@ class Turtle {
     // left is copy and paste reverse of right
     left() {
         if (this.direction === 'right') {
-            console.log("turning up");
-            this.direction = 'top';
+            console.log("facing up from right");
+            this.direction = 'up';
 
         } else if (this.direction === 'left') {
-            console.log("turning down");
+            console.log("facing down from left");
             this.direction = 'down';
 
-        } else if (this.direction === 'top') {
-            console.log('turning left');
+        } else if (this.direction === 'up') {
+            console.log('facing left from up');
             this.direction = 'left';
 
         } else if (this.direction === 'down') { 
-            console.log('turning right');
+            console.log('facing right from down');
             this.direction = 'right';
         }
         return this
@@ -141,10 +141,12 @@ class Turtle {
             for (let x=0; x<=maxNumXCoord; x++) {
                 // MAYBE TRY CONCATENATING BOXES AND TEST IT OUT
                 console.log("x: ", x)
-                testBlackBoxRow += blackBox 
+                let pair = [x,y]
+                console.log("x,y pair 2nd layer inside for loop", pair)
                  // this creates a zigzag pyramid unfortunately
                  // TRY TO ITERATE THROUGH ALL X POSITIONS, AND THEN TURN DIRECTION AND PUT A NEWLINE FOR EACH Y ELEMENT?
             }          
+        console.log("Y: ", y)
             /*
             print():  Turtle {
   x: 3,
@@ -165,7 +167,7 @@ class Turtle {
 
 // console.log("allPositions: ", move.positions())
 
-let move = new Turtle(0, 4).forward(3).left().forward(3);
+let move = new Turtle(0, 0).forward(3).right().forward(3)
 console.log("print(): ", move.print())
 
 

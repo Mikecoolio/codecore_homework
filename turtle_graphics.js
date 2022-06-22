@@ -48,7 +48,16 @@ class Turtle {
         return [maxNumX, maxNumY]
     }
 
+    negArrToPos(arr) {
+        for (let y = 0; y < arr.length; y++) { 
+            arr[y] = Math.abs(arr[y])
+        }
+        return arr
+    }
 
+    // findMaxOneDArr(oneDArr) {
+    //     for (let b = 0; b < oneDArr.length; b++)
+    // }
 
     compass() { // SWITCH STATEMENT FOR COMPASS NOT NEEDED, JUST POINT TO this.currentDirection because all this does is point to the
         //         default direction that the turtle is facing at the start of the program.
@@ -127,9 +136,10 @@ class Turtle {
     }
 
     print() {
-        let maxNum = this.findMax(this.allPositions)
+        let allCoord = this.allPositions
+        let maxNum = this.findMax(allCoord)
         // USE A NESTED FOR LOOP IN ORDER TO ITERATE THROUGH 2 ARRAYS
-        console.log("maxNum inside print() ", this.findMax(this.allPositions)) // ex. [3,7] // NEED NESTED 2 NESTED FOR LOOPS TO ITERATE THROUGH 2D ARRAY AND CREATE GRID TO REPRESENT 2d ARRAY????   
+        console.log("maxNum inside print() ", this.findMax(allCoord)) // ex. [3,7] // NEED NESTED 2 NESTED FOR LOOPS TO ITERATE THROUGH 2D ARRAY AND CREATE GRID TO REPRESENT 2d ARRAY????   
         let maxNumXCoord = maxNum[0]
         let maxNumYCoord = maxNum[1]
 
@@ -137,17 +147,49 @@ class Turtle {
         console.log("max Y coords :", maxNumYCoord)
         console.log("TYPE OF X, Y COORDS: ", typeof maxNumXCoord)
 
-        for (let y=0; y<=maxNumYCoord; y++) { 
-            for (let x=0; x<=maxNumXCoord; x++) {
-                // MAYBE TRY CONCATENATING BOXES AND TEST IT OUT
-                console.log("x: ", x)
-                let pair = [x,y]
-                console.log("x,y pair 2nd layer inside for loop", pair)
-                 // this creates a zigzag pyramid unfortunately
-                 // TRY TO ITERATE THROUGH ALL X POSITIONS, AND THEN TURN DIRECTION AND PUT A NEWLINE FOR EACH Y ELEMENT?
-            }          
-        console.log("Y: ", y)
-            /*
+        for (let a=0; a<allCoord.length; a++) {
+            let pairs = this.findMax(allCoord[a])
+            let stringedPairs = JSON.stringify(pairs)
+            console.log("stringed pairs", stringedPairs)
+        }
+
+        // credit for the JSON.stringify code: (post by Igor Barbashin)
+        // https://stackoverflow.com/questions/237104/how-do-i-check-if-an-array-includes-a-value-in-javascript
+        for (let i=0; i<allCoord.length; i++) {
+            // let pair = arr2[i]
+            let wholeArr = this.allPositions
+            let searchAgainst = allCoord[i]
+
+
+            // let workWithIndex =
+            // wholeArr.findIndex(pair => {
+            //     let result = JSON.stringify(pair) === JSON.stringify(searchAgainst)
+            //     console.log("array being searched by findIndex: ", pair)
+            //     console.log("result being searched for: ", searchAgainst)
+            //     console.log("result: ", result)
+            // })
+            // console.log("type of result: ", typeof result)
+            // console.log("workWithIndex: ", workWithIndex)
+
+            for (let c = 0; c < wholeArr.length; c++) {
+                wholeArr[c] = this.negArrToPos(wholeArr[c])
+            }
+            return wholeArr
+        }
+
+
+        // for (let y=0; y<=maxNumYCoord; y++) { 
+        //     for (let x=0; x<=maxNumXCoord; x++) {
+        //         // MAYBE TRY CONCATENATING BOXES AND TEST IT OUT
+        //         console.log("x: ", x)
+        //         let pair = [x,y]
+        //         console.log("x,y pair 2nd layer inside for loop", pair)
+        //          // this creates a zigzag pyramid unfortunately
+        //          // TRY TO ITERATE THROUGH ALL X POSITIONS, AND THEN TURN DIRECTION AND PUT A NEWLINE FOR EACH Y ELEMENT?
+        //     }          
+        // console.log("Y: ", y)
+            
+        /*
             print():  Turtle {
   x: 3,
   y: 7,
@@ -158,10 +200,11 @@ class Turtle {
     [ 3, 5 ], [ 3, 6 ],
     [ 3, 7 ]
   ]
-}*/                 // I THINK Y SHOULD BE OUTER ARRAY, IT WILL TAKE THE NEWLINE AND GO UP AND DOWN, X WILL NOT TAKE NEWLINE AND STAY HORIZONTAL!
-        }           // MAYBE IT IS SOMETHING TO DO WITH ALLPOSITIONS, I MUST GO THROUGH EVERY POSITION THE TURTLE HAS TRAVELLED.  ---------
+}*/     
+            // I THINK Y SHOULD BE OUTER ARRAY, IT WILL TAKE THE NEWLINE AND GO UP AND DOWN, X WILL NOT TAKE NEWLINE AND STAY HORIZONTAL!
+                  // MAYBE IT IS SOMETHING TO DO WITH ALLPOSITIONS, I MUST GO THROUGH EVERY POSITION THE TURTLE HAS TRAVELLED.  ---------
         return this
-    }
+}
 }
 // let move = new Turtle(0, 0).forward(3).right().forward(2);
 

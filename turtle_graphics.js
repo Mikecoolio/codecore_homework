@@ -44,7 +44,8 @@ class Turtle {
                 maxNumY = yCoord[a]
             }
         }
-        console.log("maxNumY: ", maxNumY)   
+        console.log("maxNumX: ", maxNumX) 
+        console.log("maxNumY: ", maxNumY)  
         return [maxNumX, maxNumY]
     }
 
@@ -147,18 +148,18 @@ class Turtle {
         console.log("max Y coords :", maxNumYCoord)
         console.log("TYPE OF X, Y COORDS: ", typeof maxNumXCoord)
 
-        for (let a=0; a<allCoord.length; a++) {
-            let pairs = this.findMax(allCoord[a])
-            let stringedPairs = JSON.stringify(pairs)
-            console.log("stringed pairs", stringedPairs)
-        }
+        // for (let a=0; a<allCoord.length; a++) {
+        //     let pairs = this.findMax(allCoord[a])
+        //     let stringedPairs = JSON.stringify(pairs)
+        //     console.log("stringed pairs", stringedPairs)
+        // }
 
         // credit for the JSON.stringify code: (post by Igor Barbashin)
         // https://stackoverflow.com/questions/237104/how-do-i-check-if-an-array-includes-a-value-in-javascript
         for (let i=0; i<allCoord.length; i++) {
             // let pair = arr2[i]
-            let wholeArr = this.allPositions
-            let searchAgainst = allCoord[i]
+            // let wholeArr = this.allPositions
+            // let searchAgainst = allCoord[i]
 
 
             // let workWithIndex =
@@ -171,10 +172,11 @@ class Turtle {
             // console.log("type of result: ", typeof result)
             // console.log("workWithIndex: ", workWithIndex)
 
-            for (let c = 0; c < wholeArr.length; c++) {
-                wholeArr[c] = this.negArrToPos(wholeArr[c])
+            for (let c = 0; c < allCoord.length; c++) {
+                allCoord[c] = this.negArrToPos(allCoord[c])
+                console.log("allCoord[c]: ", allCoord[c])
             }
-            return wholeArr
+            console.log("allCoord: ", allCoord)
         }
 
 
@@ -210,11 +212,49 @@ class Turtle {
 
 // console.log("allPositions: ", move.positions())
 
-let move = new Turtle(0, 0).forward(3).right().forward(3)
+let move = new Turtle(0, 0)
+move.forward(3).right().forward(3)
+// move.forward(3)
+// .left()
+// .forward(3)
+// .right()
+// .forward(5)
+// .right()
+// .forward(8)
+// .right()
+// .forward(5)
+// .right()
+// .forward(3)
+// .left()
+// .forward(3)
 console.log("print(): ", move.print())
 
 
 
+
+function turnToString(twoDArray, oneDArrPair) {
+    let twoDArrStr = JSON.stringify(twoDArray)
+    let maximumXAndY = move.findMax(move.allPositions) 
+
+    // console.log(typeof twoDArrStr)
+    // console.log("twoDArrStr: ", twoDArrStr)
+    
+    for (let y = 0; y <= maximumXAndY[1]; y++) {
+        for (let x = 0; x <= maximumXAndY[0]; x++) {
+            let twoDeepArray = JSON.stringify([x, y]) // this will more accurately stringify both x and y
+            // JSON.stringify(twoDArray[x]) // this returns all positive (exists)
+            console.log("twoDArray[x]", twoDArray[x])
+            if (twoDArrStr.includes(twoDeepArray) === true) {
+                console.log(`${twoDeepArray} exists in ${twoDArrStr}`)
+            } else {
+                console.log(`${twoDeepArray} does not exist in ${twoDArrStr}`)
+            }
+        }
+        console.log("Y: ", y)
+    }
+}
+
+turnToString(move.allPositions, [0,0])
 
 // MAYBE CREATE 10 X 10 GRID FIRST
 

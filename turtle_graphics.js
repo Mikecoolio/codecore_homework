@@ -1,12 +1,12 @@
-const emptyBox = '\u25A2' // box representation
+const emptyBox = '\u25A2' 
 const blackBox = "\u25A0"
 
 class Turtle {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.direction = "right"; // default is facing right along the X axis
-        this.allPositions = [[this.x, this.y]] // Array must be initialized in the contructor, for the point pair arrays to be added persistently
+        this.direction = "right"; 
+        this.allPositions = [[this.x, this.y]] 
     }
 
     findMax(twoDArr) {
@@ -42,9 +42,9 @@ class Turtle {
                 maxNumY = yCoords[a]
             }
         }
-
         return [maxNumX, maxNumY]
     }
+
 
     getDefaultDirection() {return this.direction}
 
@@ -73,13 +73,10 @@ class Turtle {
     right() {
         if (this.direction === 'right') {
             this.direction = 'down';
-
         } else if (this.direction === 'left') {
             this.direction = 'up';
-
         } else if (this.direction === 'up') {
             this.direction = 'right';
-
         } else if (this.direction === 'down') { 
             this.direction = 'left';
         }
@@ -89,13 +86,10 @@ class Turtle {
     left() {
         if (this.direction === 'right') {
             this.direction = 'up';
-
         } else if (this.direction === 'left') {
             this.direction = 'down';
-
         } else if (this.direction === 'up') {
             this.direction = 'left';
-
         } else if (this.direction === 'down') { 
             this.direction = 'right';
         }
@@ -106,8 +100,6 @@ class Turtle {
         return this.allPositions 
     }
 
-    // LOL https://stackoverflow.com/questions/6157497/node-js-printing-to-console-without-a-trailing-newline
-    // I HAD NO IDEA CONSOLE LOG PUTS A NEW LINE AT THE END OF THE LOG, I NEEDED TO USE process.stdout.write ALL THIS TIME LMAO!!
     print() {        
         let allPositions = this.allPositions
         let twoDArrStr = JSON.stringify(allPositions)
@@ -119,14 +111,11 @@ class Turtle {
                 if (twoDArrStr.includes(twoDeepArray) === true) {
                     process.stdout.write(blackBox + " ");
                 } else {
-                    process.stdout.write(emptyBox + " ");
-                    
-                        
+                    process.stdout.write(emptyBox + " ");  
                 }
             }
             console.log("\n")
         }
-
     }
 }
 
@@ -144,7 +133,7 @@ let move = new Turtle(0, 0)
  .forward(3)
  .left()
  .forward(3)
-console.log("print(): ", move.print())
+console.log(move.print())
 
 
 

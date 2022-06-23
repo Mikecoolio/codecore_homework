@@ -56,39 +56,27 @@ class Turtle {
         return arr
     }
 
-    // findMaxOneDArr(oneDArr) {
-    //     for (let b = 0; b < oneDArr.length; b++)
-    // }
+    getDefaultDirection() {return this.direction}
 
-    compass() { // SWITCH STATEMENT FOR COMPASS NOT NEEDED, JUST POINT TO this.currentDirection because all this does is point to the
-        //         default direction that the turtle is facing at the start of the program.
-        return this.direction
-    }
 
     forward(steps) {
         let recordPositions = []
-        // NEED TO THINK OF WAY TO KNOW DIRECTION OF MOVEMENT
-        // MUST CHECK DIRECTION BEFORE KNOWING WHERE TO MOVE
-        let currentDirection = this.compass()
-        // console.log("the current direction is: ", currentDirection)
+        let currentDirection = this.getDefaultDirection()
 
-        for (let i = 0; i < steps; i++) { // i=0; i<steps is the same thing as i=1; i<=steps
-            if (currentDirection === 'right') { // Must add to move forward, maybe minus to move backward?
+        for (let i = 0; i < steps; i++) { 
+            if (currentDirection === 'right') { 
                 this.x += 1;
-            } else if (currentDirection === 'left') { // subtracting when movement is left means minusing x (reverse of 'right')
+            } else if (currentDirection === 'left') { 
                 this.x -= 1;
-            } else if (currentDirection === 'up') {// reverse of 'bottom'
+            } else if (currentDirection === 'up') {
                 this.y += 1;
             } else if (currentDirection === 'down') { 
                 this.y -= 1;
             }
             recordPositions = [this.x, this.y]
-            // console.log("recordPositions", recordPositions)
     
             this.allPositions.push(recordPositions)
         }
-        // SWITCH STATEMENT DOES NOT WORK INSIDE LOOPS, IT EVALUATES THE FIRST CASE THAT MATCHES THE VALUE OF THE VARIABLE THAT IS IN THE SWITCH STATEMENT
-
         return this
     }
 
@@ -178,33 +166,6 @@ class Turtle {
             }
             console.log("allCoord: ", allCoord)
         }
-
-
-        // for (let y=0; y<=maxNumYCoord; y++) { 
-        //     for (let x=0; x<=maxNumXCoord; x++) {
-        //         // MAYBE TRY CONCATENATING BOXES AND TEST IT OUT
-        //         console.log("x: ", x)
-        //         let pair = [x,y]
-        //         console.log("x,y pair 2nd layer inside for loop", pair)
-        //          // this creates a zigzag pyramid unfortunately
-        //          // TRY TO ITERATE THROUGH ALL X POSITIONS, AND THEN TURN DIRECTION AND PUT A NEWLINE FOR EACH Y ELEMENT?
-        //     }          
-        // console.log("Y: ", y)
-            
-        /*
-            print():  Turtle {
-  x: 3,
-  y: 7,
-  direction: 'top',
-  allPositions: [
-    [ 0, 4 ], [ 1, 4 ],
-    [ 2, 4 ], [ 3, 4 ],
-    [ 3, 5 ], [ 3, 6 ],
-    [ 3, 7 ]
-  ]
-}*/     
-            // I THINK Y SHOULD BE OUTER ARRAY, IT WILL TAKE THE NEWLINE AND GO UP AND DOWN, X WILL NOT TAKE NEWLINE AND STAY HORIZONTAL!
-                  // MAYBE IT IS SOMETHING TO DO WITH ALLPOSITIONS, I MUST GO THROUGH EVERY POSITION THE TURTLE HAS TRAVELLED.  ---------
         return this
 }
 }
@@ -235,19 +196,16 @@ console.log("print(): ", move.print())
 function turnToString(twoDArray, oneDArrPair) {
     let twoDArrStr = JSON.stringify(twoDArray)
     let maximumXAndY = move.findMax(move.allPositions) 
-
-    // console.log(typeof twoDArrStr)
-    // console.log("twoDArrStr: ", twoDArrStr)
     
     for (let y = 0; y <= maximumXAndY[1]; y++) {
         for (let x = 0; x <= maximumXAndY[0]; x++) {
-            let twoDeepArray = JSON.stringify([x, y]) // this will more accurately stringify both x and y
-            // JSON.stringify(twoDArray[x]) // this returns all positive (exists)
-            console.log("twoDArray[x]", twoDArray[x])
+
+            let twoDeepArray = JSON.stringify([x, y]) 
+
             if (twoDArrStr.includes(twoDeepArray) === true) {
-                console.log(`${twoDeepArray} exists in ${twoDArrStr}`)
+                console.log(blackBox)
             } else {
-                console.log(`${twoDeepArray} does not exist in ${twoDArrStr}`)
+                console.log(box)
             }
         }
         console.log("Y: ", y)
@@ -255,29 +213,3 @@ function turnToString(twoDArray, oneDArrPair) {
 }
 
 turnToString(move.allPositions, [0,0])
-
-// MAYBE CREATE 10 X 10 GRID FIRST
-
-// for (let i=0; i<steps; i++) {
-//     grid = grid + " " + box
-// }
-// console.log("grid: ", grid)
-
-// function createGrid() {
-//     let width = 10
-//     let height = 10
-//     let grid = ''
-//     let rows = ''
-//     let columns = ''
-
-//     for (let i=0; i<width; i++) {
-//         rows = rows + box + " "
-//     }
-
-//     for (let a=0; a<height; a++) {
-//         columns = rows + "\n"
-//         grid = columns.repeat(height)
-//     }
-//     console.log(grid)
-// }
-// createGrid()

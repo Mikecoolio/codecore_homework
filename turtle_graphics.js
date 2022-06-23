@@ -12,40 +12,39 @@ class Turtle {
     }
 
     findMax(twoDArr) {
-        let xCoord = []
-        let yCoord = []
+        let xCoords = []
+        let yCoords = []
 
         let twoDArrFlat = twoDArr.flat()
         for (let i = 0; i < twoDArr.length; i++) {
             if (i % 2 === 0) {
                 let poppedOddIndexs = twoDArrFlat.pop(twoDArrFlat[i])
-                yCoord.push(poppedOddIndexs)
+                yCoords.push(poppedOddIndexs)
             } else {
                 let poppedEvenIndexs = twoDArrFlat.pop(twoDArrFlat[i])
-                xCoord.push(poppedEvenIndexs)
+                xCoords.push(poppedEvenIndexs)
             }
         }
 
-        let maxNumX = xCoord[0]
-        let maxNumY = yCoord[0]  
-        // This for loop turns the negative values within the yCoord array, into positive values without destroying the array structure
-        for (let y = 0; y < yCoord.length; y++) { 
-            yCoord[y] = Math.abs(yCoord[y])
+        let maxNumX = xCoords[0]
+        let maxNumY = yCoords[0]  
+        
+        for (let y = 0; y < yCoords.length; y++) { 
+            yCoords[y] = Math.abs(yCoords[y])
         }
 
-        for (let i = 1; i < xCoord.length; i++) {
-            if (xCoord[i] > maxNumX) {
-                maxNumX = xCoord[i]
+        for (let i = 1; i < xCoords.length; i++) {
+            if (xCoords[i] > maxNumX) {
+                maxNumX = xCoords[i]
             }
         }
 
-        for (let a = 1; a < yCoord.length; a++) {
-            if (yCoord[a] > maxNumY) {
-                maxNumY = yCoord[a]
+        for (let a = 1; a < yCoords.length; a++) {
+            if (yCoords[a] > maxNumY) {
+                maxNumY = yCoords[a]
             }
         }
-        console.log("maxNumX: ", maxNumX) 
-        console.log("maxNumY: ", maxNumY)  
+
         return [maxNumX, maxNumY]
     }
 
@@ -82,39 +81,31 @@ class Turtle {
 
     right() {
         if (this.direction === 'right') {
-            console.log("facing down from right");
             this.direction = 'down';
 
         } else if (this.direction === 'left') {
-            console.log("facing up from left");
             this.direction = 'up';
 
         } else if (this.direction === 'up') {
-            console.log('facing right from up');
             this.direction = 'right';
 
         } else if (this.direction === 'down') { 
-            console.log('facing left from down');
             this.direction = 'left';
         }
         return this
     }
-    // left is copy and paste reverse of right
+
     left() {
         if (this.direction === 'right') {
-            console.log("facing up from right");
             this.direction = 'up';
 
         } else if (this.direction === 'left') {
-            console.log("facing down from left");
             this.direction = 'down';
-
+            
         } else if (this.direction === 'up') {
-            console.log('facing left from up');
             this.direction = 'left';
 
         } else if (this.direction === 'down') { 
-            console.log('facing right from down');
             this.direction = 'right';
         }
         return this
@@ -124,50 +115,26 @@ class Turtle {
         return this.allPositions 
     }
 
-    print() {
-        let allCoord = this.allPositions
-        let maxNum = this.findMax(allCoord)
-        // USE A NESTED FOR LOOP IN ORDER TO ITERATE THROUGH 2 ARRAYS
-        console.log("maxNum inside print() ", this.findMax(allCoord)) // ex. [3,7] // NEED NESTED 2 NESTED FOR LOOPS TO ITERATE THROUGH 2D ARRAY AND CREATE GRID TO REPRESENT 2d ARRAY????   
-        let maxNumXCoord = maxNum[0]
-        let maxNumYCoord = maxNum[1]
+    print() {        
+        let allPositions = this.allPositions
+        let twoDArrStr = JSON.stringify(allPositions)
+        let maximumXAndY = move.findMax(allPositions) 
+        
+        for (let y = 0; y <= maximumXAndY[1]; y++) {
+            for (let x = 0; x <= maximumXAndY[0]; x++) {
 
-        console.log("max X coords :", maxNumXCoord)
-        console.log("max Y coords :", maxNumYCoord)
-        console.log("TYPE OF X, Y COORDS: ", typeof maxNumXCoord)
+                let twoDeepArray = JSON.stringify([x, y]) 
 
-        // for (let a=0; a<allCoord.length; a++) {
-        //     let pairs = this.findMax(allCoord[a])
-        //     let stringedPairs = JSON.stringify(pairs)
-        //     console.log("stringed pairs", stringedPairs)
-        // }
-
-        // credit for the JSON.stringify code: (post by Igor Barbashin)
-        // https://stackoverflow.com/questions/237104/how-do-i-check-if-an-array-includes-a-value-in-javascript
-        for (let i=0; i<allCoord.length; i++) {
-            // let pair = arr2[i]
-            // let wholeArr = this.allPositions
-            // let searchAgainst = allCoord[i]
-
-
-            // let workWithIndex =
-            // wholeArr.findIndex(pair => {
-            //     let result = JSON.stringify(pair) === JSON.stringify(searchAgainst)
-            //     console.log("array being searched by findIndex: ", pair)
-            //     console.log("result being searched for: ", searchAgainst)
-            //     console.log("result: ", result)
-            // })
-            // console.log("type of result: ", typeof result)
-            // console.log("workWithIndex: ", workWithIndex)
-
-            for (let c = 0; c < allCoord.length; c++) {
-                allCoord[c] = this.negArrToPos(allCoord[c])
-                console.log("allCoord[c]: ", allCoord[c])
+                if (twoDArrStr.includes(twoDeepArray) === true) {
+                    console.log(blackBox)
+                } else {
+                    console.log(box)
+                }
             }
-            console.log("allCoord: ", allCoord)
+            console.log("Y: ", y)
         }
-        return this
-}
+
+    }
 }
 // let move = new Turtle(0, 0).forward(3).right().forward(2);
 
@@ -193,23 +160,5 @@ console.log("print(): ", move.print())
 
 
 
-function turnToString(twoDArray, oneDArrPair) {
-    let twoDArrStr = JSON.stringify(twoDArray)
-    let maximumXAndY = move.findMax(move.allPositions) 
-    
-    for (let y = 0; y <= maximumXAndY[1]; y++) {
-        for (let x = 0; x <= maximumXAndY[0]; x++) {
 
-            let twoDeepArray = JSON.stringify([x, y]) 
 
-            if (twoDArrStr.includes(twoDeepArray) === true) {
-                console.log(blackBox)
-            } else {
-                console.log(box)
-            }
-        }
-        console.log("Y: ", y)
-    }
-}
-
-turnToString(move.allPositions, [0,0])

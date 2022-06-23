@@ -1,7 +1,5 @@
-const box = '\u25A2' // box representation
-let grid = ''
-const blackBox = "\u25A0" // black box representation
-let testBlackBoxRow = ''
+const emptyBox = '\u25A2' // box representation
+const blackBox = "\u25A0"
 
 class Turtle {
     constructor(x, y) {
@@ -18,11 +16,11 @@ class Turtle {
         let twoDArrFlat = twoDArr.flat()
         for (let i = 0; i < twoDArr.length; i++) {
             if (i % 2 === 0) {
-                let poppedOddIndexs = twoDArrFlat.pop(twoDArrFlat[i])
-                yCoords.push(poppedOddIndexs)
+                let oddIndexElements = twoDArrFlat.pop(twoDArrFlat[i])
+                yCoords.push(oddIndexElements)
             } else {
-                let poppedEvenIndexs = twoDArrFlat.pop(twoDArrFlat[i])
-                xCoords.push(poppedEvenIndexs)
+                let evenIndexElements = twoDArrFlat.pop(twoDArrFlat[i])
+                xCoords.push(evenIndexElements)
             }
         }
 
@@ -46,13 +44,6 @@ class Turtle {
         }
 
         return [maxNumX, maxNumY]
-    }
-
-    negArrToPos(arr) {
-        for (let y = 0; y < arr.length; y++) { 
-            arr[y] = Math.abs(arr[y])
-        }
-        return arr
     }
 
     getDefaultDirection() {return this.direction}
@@ -101,7 +92,7 @@ class Turtle {
 
         } else if (this.direction === 'left') {
             this.direction = 'down';
-            
+
         } else if (this.direction === 'up') {
             this.direction = 'left';
 
@@ -115,46 +106,44 @@ class Turtle {
         return this.allPositions 
     }
 
+    // LOL https://stackoverflow.com/questions/6157497/node-js-printing-to-console-without-a-trailing-newline
+    // I HAD NO IDEA CONSOLE LOG PUTS A NEW LINE AT THE END OF THE LOG, I NEEDED TO USE process.stdout.write ALL THIS TIME LMAO!!
     print() {        
         let allPositions = this.allPositions
         let twoDArrStr = JSON.stringify(allPositions)
-        let maximumXAndY = move.findMax(allPositions) 
+        let maximumXAndY = this.findMax(allPositions) 
         
         for (let y = 0; y <= maximumXAndY[1]; y++) {
             for (let x = 0; x <= maximumXAndY[0]; x++) {
-
                 let twoDeepArray = JSON.stringify([x, y]) 
-
                 if (twoDArrStr.includes(twoDeepArray) === true) {
-                    console.log(blackBox)
+                    process.stdout.write(blackBox + " ");
                 } else {
-                    console.log(box)
+                    process.stdout.write(emptyBox + " ");
+                    
+                        
                 }
             }
-            console.log("Y: ", y)
+            console.log("\n")
         }
 
     }
 }
-// let move = new Turtle(0, 0).forward(3).right().forward(2);
-
-// console.log("allPositions: ", move.positions())
 
 let move = new Turtle(0, 0)
-move.forward(3).right().forward(3)
-// move.forward(3)
-// .left()
-// .forward(3)
-// .right()
-// .forward(5)
-// .right()
-// .forward(8)
-// .right()
-// .forward(5)
-// .right()
-// .forward(3)
-// .left()
-// .forward(3)
+ move.forward(3)
+ .left()
+ .forward(3)
+ .right()
+ .forward(5)
+ .right()
+ .forward(8)
+ .right()
+ .forward(5)
+ .right()
+ .forward(3)
+ .left()
+ .forward(3)
 console.log("print(): ", move.print())
 
 

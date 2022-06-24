@@ -18,7 +18,7 @@ Welcome to Todo CLI!
 
 const fs = require('fs')
 const readLine = require('readline')
-const selectors = ['(v)', '(n)', '(cX', ('dX'), ('q')]
+const selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)']
 const descriptors = ['View', 'New', 'Complete', 'Delete', 'Quit']
 
 
@@ -30,9 +30,11 @@ function output() {
 
 output()
 
-function menuComponents(selector, descriptors) {
-    for (s = 0, d =0; s < selector.length, d < descriptors.length; s++, d++) {
-        console.log(`${selector[s]} ${descriptor[d]}`)
+function menuComponents(selectors, descriptors) {
+    for (s = 0, d =0; s < selectors.length, d < descriptors.length; s++, d++) {
+        process.stdout.write(`${selectors[s]}${descriptors[d]}` + " ")
     }
-    console.log(`${selector} ${descriptor}`)
+    console.log('\n')
 }
+
+menuComponents(selectors, descriptors)

@@ -17,10 +17,12 @@ Welcome to Todo CLI!
 */
 
 const fs = require('fs')
-const readLine = require('readline')
+const readLine = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 const selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)']
 const descriptors = ['View', 'New', 'Complete', 'Delete', 'Quit']
-
 
 function output() {
     console.log("Welcome to ToDo CLI!")
@@ -35,6 +37,12 @@ function menuComponents(selectors, descriptors) {
         process.stdout.write(`${selectors[s]}${descriptors[d]}` + " ")
     }
     console.log('\n')
+    process.stdout.write('>')
+    readLine.on('line', (input) => {
+        console.log(`Received: ${input}`)
+        readLine.close()
+    })
 }
 
 menuComponents(selectors, descriptors)
+

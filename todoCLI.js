@@ -45,45 +45,61 @@ function baseMenu(selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)'], descriptors
     console.log('\n')
     process.stdout.write('>')
     readLine.on('line', (input) => {
-        input = input.toLowerCase()
+        input = input.toString().toLowerCase()
         //console.log(`Received: ${input}`)
-        
-        switch (input) {
-            case 'v':
-                displayTasks()
-            case 'n':
-                newTask()
-            default:
-                baseMenu()
-        }
-        // readLine.close()
+        baseMenuSwitch(input)
+
+        //readLine.close()
     })
 }
 
-function displayTasks() {
-    const taskNumber = tasks.length
-    let checkboxOrNoCheckbox = '[ ]'
-
-    for (i = 0; i < tasks.length; i++) {
-        if (tasks.length === 0) {
-            console.log("The tasks list is currently empty, please go back to the base menu and input n")
-            console.log('\n')
-        } else if (tasks.length > 0) {
-            console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]}`)
-            console.log('\n')
-        }
-
+function baseMenuSwitch(input) {
+    if (input === 'v') {
+        console.log("inside v")
+        displayTasks();
+    } else if (input === 'n') {
+        console.log("inside n")
+        newTask();
+    } else {
+        console.log("default condition hit, back to base menu")
+        baseMenu();
     }
-    baseMenu()
+
+
+    // switch (input) {
+    //     case 'v':
+    //         console.log("inside v")
+    //         displayTasks();
+    //     case 'n':
+    //         newTask();
+    //     default:
+    //         baseMenu();
+    // }
 }
 
-// function fillCheckMark() {
 
-// }
+function displayTasks() {
+    const taskNumber = tasks.length
+    console.log("tasks.length inside displayTasks()", tasks.length)
+    let checkboxOrNoCheckbox = '[ ]'
+    let i = 0
 
-// function checkIfTaskComplete() {
+    // PUT IN BASE MENU (baseMenu())
 
-// }
+    if (tasks.length === 0) {
+        console.log("The tasks list is currently empty, please go back to the base menu and input a new task")
+        console.log('\n')
+        baseMenu()
+    } else if (tasks.length > 0) {
+        for (i = 0; i < tasks.length; i++) {
+            return i
+        }
+        console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]}`)
+        console.log('\n')
+        baseMenu()
+    }
+    readLine.close()
+}
 
 function newTask() {
     readLine.question("\nPlease input a task: \n", (answer) => {
@@ -97,6 +113,16 @@ function newTask() {
 
     })
 }
+
+// function fillCheckMark() {
+
+// }
+
+// function checkIfTaskComplete() {
+
+// }
+
+
 
 output()
 baseMenu()

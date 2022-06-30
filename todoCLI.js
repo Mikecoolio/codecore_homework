@@ -92,7 +92,8 @@ function displayTasks() {
         baseMenu()
     } else if (tasks.length > 0) {
         for (i = 0; i < tasks.length; i++) {
-            return i
+            console.log("SHOULD RETURN ALL TASKS HERE")
+            console.log(tasks[i])
         }
         console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]}`)
         console.log('\n')

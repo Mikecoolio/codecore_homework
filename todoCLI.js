@@ -38,7 +38,8 @@ function output() {
 }
 
 
-function baseMenu(selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)'], descriptors = ['View', 'New', 'Complete', 'Delete', 'Quit']) {
+function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)'], descriptors = ['View', 'New', 'Complete', 'Delete', 'Quit']) {
+    console.log("RECIEVED TASKS LIST", tasks)
     for (s = 0, d =0; s < selectors.length, d < descriptors.length; s++, d++) {
         process.stdout.write(`${selectors[s]}${descriptors[d]}` + " ")
     }
@@ -47,34 +48,17 @@ function baseMenu(selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)'], descriptors
     readLine.on('line', (input) => {
         input = input.toString().toLowerCase()
         //console.log(`Received: ${input}`)
-        baseMenuSwitch(input)
-
-        //readLine.close()
+        if (input === 'v') {
+            console.log("inside v")
+            displayTasks();
+        } else if (input === 'n') {
+            console.log("inside n")
+            newTask();
+        } else {
+            console.log("default condition hit, back to base menu")
+            baseMenu();
+        }
     })
-}
-
-function baseMenuSwitch(input) {
-    if (input === 'v') {
-        console.log("inside v")
-        displayTasks();
-    } else if (input === 'n') {
-        console.log("inside n")
-        newTask();
-    } else {
-        console.log("default condition hit, back to base menu")
-        baseMenu();
-    }
-
-
-    // switch (input) {
-    //     case 'v':
-    //         console.log("inside v")
-    //         displayTasks();
-    //     case 'n':
-    //         newTask();
-    //     default:
-    //         baseMenu();
-    // }
 }
 
 
@@ -93,13 +77,12 @@ function displayTasks() {
     } else if (tasks.length > 0) {
         for (i = 0; i < tasks.length; i++) {
             console.log("SHOULD RETURN ALL TASKS HERE")
-            console.log(tasks[i])
+            console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]}`)
         }
-        console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]}`)
+        console.log("TASKS ARRAY: ", tasks)
         console.log('\n')
         baseMenu()
     }
-    readLine.close()
 }
 
 function newTask() {
@@ -109,7 +92,7 @@ function newTask() {
         } else if (answer) {
             tasks.push(answer)
             console.log(`${answer} has been successfully inputed as a task, the lists of tasks is now: ${tasks} \n`)
-            baseMenu()
+            baseMenu(tasks)
         }
 
     })

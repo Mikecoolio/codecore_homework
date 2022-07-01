@@ -39,6 +39,7 @@ function output() {
 
 
 function baseMenu(selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)'], descriptors = ['View', 'New', 'Complete', 'Delete', 'Quit']) {
+    console.log("INSIDE baseMenu")
     for (s = 0, d =0; s < selectors.length, d < descriptors.length; s++, d++) {
         process.stdout.write(`${selectors[s]}${descriptors[d]}` + " ")
     }
@@ -46,10 +47,7 @@ function baseMenu(selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)'], descriptors
     process.stdout.write('>')
     readLine.on('line', (input) => {
         input = input.toString().toLowerCase()
-        //console.log(`Received: ${input}`)
         baseMenuSwitch(input)
-
-        //readLine.close()
     })
 }
 
@@ -64,27 +62,12 @@ function baseMenuSwitch(input) {
         console.log("default condition hit, back to base menu")
         baseMenu();
     }
-
-
-    // switch (input) {
-    //     case 'v':
-    //         console.log("inside v")
-    //         displayTasks();
-    //     case 'n':
-    //         newTask();
-    //     default:
-    //         baseMenu();
-    // }
 }
-
 
 function displayTasks() {
     const taskNumber = tasks.length
     console.log("tasks.length inside displayTasks()", tasks.length)
     let checkboxOrNoCheckbox = '[ ]'
-    let i = 0
-
-    // PUT IN BASE MENU (baseMenu())
 
     if (tasks.length === 0) {
         console.log("The tasks list is currently empty, please go back to the base menu and input a new task")
@@ -93,13 +76,11 @@ function displayTasks() {
     } else if (tasks.length > 0) {
         for (i = 0; i < tasks.length; i++) {
             console.log("SHOULD RETURN ALL TASKS HERE")
-            console.log(tasks[i])
+            console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]}`)
         }
-        console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]}`)
         console.log('\n')
         baseMenu()
     }
-    readLine.close()
 }
 
 function newTask() {
@@ -111,7 +92,6 @@ function newTask() {
             console.log(`${answer} has been successfully inputed as a task, the lists of tasks is now: ${tasks} \n`)
             baseMenu()
         }
-
     })
 }
 

@@ -43,7 +43,11 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
     })
 }
 
-function displayTasks() {
+function displayTasks(update = []) { // maybe recieve an array with the updatedtask phrase and its index in the tasks array
+    let updatedPhrase = update[0]
+    let indexOfUpdatedPhrase = update[1]
+
+    let listOfTasksWithCheckbox = []
     console.log("tasks.length inside displayTasks()", tasks.length)
 
     if (tasks.length === 0) {
@@ -52,8 +56,10 @@ function displayTasks() {
         baseMenu()
     } else if (tasks.length > 0) {
         for (i = 0; i < tasks.length; i++) {  
-            console.log(`IN THE VIEW: ${i} ${emptyCheckbox} ${tasks[i]} \n`)
+            let phrase = `IN THE VIEW: ${i} ${emptyCheckbox} ${tasks[i]} \n`
+            listOfTasksWithCheckbox.push(phrase)
         }
+        console.log(listOfTasksWithCheckbox.join(''))
         baseMenu(tasks)
     }
 }
@@ -71,25 +77,11 @@ function completeTask(input, taskList) {
     
     updatedTaskList = 
     taskList.splice(indexOfTask, 1, taskList[indexOfTask])
+    console.log("updatedTaskList", updatedTaskList[0])
+
     console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${taskList[indexOfTask]} \n`)
 
-    // taskList.map(() => {
-    //     console.log("taskList.at(indexOfTask)", taskList.at(indexOfTask))
-    //     console.log("taskList[indexOfTask]", taskList[indexOfTask])
-    //     if (taskList.at(indexOfTask) === taskList[indexOfTask]) {
-    //         console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${tasks[i]} \n`)
-    //     }
-    // })
-    
-    // for (const task in taskList) {
-    //     if (taskList.at(indexOfTask) === taskList[indexOfTask]) {
-    //         taskList.map(task => {
-                
-    //         })
-    //     }
-    // }
-
-    baseMenu()
+    displayTasks([updatedTaskList, indexOfTask])
 }
 
 function newTask() {

@@ -1,14 +1,14 @@
 const fs = require('fs')
 const readLine = require('readline')
-
+const emptyCheckbox = '[ ]'
+const fullCheckBox = '[\u2713]'
+const tasks = []
 const rl = readLine.createInterface({
     input: process.stdin,
     output: process.stdout
   });
 
-const tasks = []
-const emptyCheckbox = '[ ]'
-const fullCheckbox = '[\u2713]'
+
 
 
 function output() {
@@ -45,7 +45,6 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
 
 function displayTasks() {
     console.log("tasks.length inside displayTasks()", tasks.length)
-    let checkboxOrNoCheckbox = '[ ]'
 
     if (tasks.length === 0) {
         console.log("List is empty...")
@@ -53,22 +52,44 @@ function displayTasks() {
         baseMenu()
     } else if (tasks.length > 0) {
         for (i = 0; i < tasks.length; i++) {  
-            console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]} \n`)
+            console.log(`IN THE VIEW: ${i} ${emptyCheckbox} ${tasks[i]} \n`)
         }
-        baseMenu()
+        baseMenu(tasks)
     }
 }
 
 function completeTask(input, taskList) {
-  console.log("taskList inside completeTask", taskList)
-  console.log("input inside completeTask", input)
+    console.log("taskList inside completeTask", taskList)
+    console.log("input inside completeTask", input)
 
-  inputSplitted = input.split('')
-  let indexOfTask = parseInt(inputSplitted[1])
+    inputSplitted = input.split('')
+    let indexOfTask = parseInt(inputSplitted[1])
 
-  console.log(taskList[indexOfTask])
+    // console.log("indexOfTask", indexOfTask)
+    // //console.log("taskList[indexOfTask]", taskList[indexOfTask])
+    // console.log(`Completed ${taskList[indexOfTask]}`)
+    
+    updatedTaskList = 
+    taskList.splice(indexOfTask, 1, taskList[indexOfTask])
+    console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${taskList[indexOfTask]} \n`)
 
-  baseMenu()
+    // taskList.map(() => {
+    //     console.log("taskList.at(indexOfTask)", taskList.at(indexOfTask))
+    //     console.log("taskList[indexOfTask]", taskList[indexOfTask])
+    //     if (taskList.at(indexOfTask) === taskList[indexOfTask]) {
+    //         console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${tasks[i]} \n`)
+    //     }
+    // })
+    
+    // for (const task in taskList) {
+    //     if (taskList.at(indexOfTask) === taskList[indexOfTask]) {
+    //         taskList.map(task => {
+                
+    //         })
+    //     }
+    // }
+
+    baseMenu()
 }
 
 function newTask() {

@@ -8,14 +8,10 @@ const rl = readLine.createInterface({
     output: process.stdout
   });
 
-
-
-
 function output() {
     console.log("Welcome to ToDo CLI!")
     console.log("-------------------------")
 }
-
 
 function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)'], descriptors = ['View', 'New', 'Complete', 'Delete', 'Quit']) {
     console.log("RECIEVED TASKS LIST", taskList)
@@ -35,7 +31,7 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
             newTask();
         } else if (cleanedInput.includes('c')) {
             console.log('inside c')
-            checkTasksArrLength(input, taskList)
+            checkTasksArrLength(cleanedInput, taskList)
             // need to code a checker function that checks if the number attached beside c exceeds the length of the taskList index or not
         }
         else {
@@ -48,11 +44,13 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
 function checkTasksArrLength(input, taskList) {
     let splittedInput = input.split('')
     let desiredTaskToBeUpdated = parseInt(splittedInput[1])
+    console.log("splittedInput", splittedInput)
+    console.log("desiredTaskToBeUpdated", desiredTaskToBeUpdated)
 
-    if (taskList.length < desiredTaskToBeUpdated) {
-        baseMenu(taskList)
+    if (taskList.length > desiredTaskToBeUpdated) {
+        completeTask(input, taskList)
     } else {
-        completeTask(input.toString().toLowerCase(), taskList)
+        baseMenu(taskList)
     }
 }
 
@@ -86,6 +84,10 @@ function displayTasks(update = []) { // maybe recieve an array with the updatedt
         //console.log(completedTasks.join(''))
         baseMenu(tasks)
     }
+}
+
+function deleteTask(input) {
+
 }
 
 function completeTask(input, taskList) { // TASKLIST WILL BE THE PHRASE LIST INSTEAD?

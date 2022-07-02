@@ -1,36 +1,15 @@
-/*
-
-Add
-From the Todo Menu pressing n then Enter should ask the user what item to add to the list. The user can then write a response. Save their response as a new item at the end of the todo list.
-
-$ node todoCLI.js
-
-Welcome to Todo CLI!
-
---------------------
-
-(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
-
-> n
-
-What?
-
->Go hunting for pesky beetles (not the band)
-
-(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
-
->
-
-*/
-
 const fs = require('fs')
-const readLine = require('readline').createInterface({
+const readLine = require('readline')
+
+const rl = readLine.createInterface({
     input: process.stdin,
     output: process.stdout
   });
+
 const tasks = []
 const emptyCheckbox = '[ ]'
 const fullCheckbox = '[\u2713]'
+
 
 function output() {
     console.log("Welcome to ToDo CLI!")
@@ -39,54 +18,61 @@ function output() {
 
 
 function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)'], descriptors = ['View', 'New', 'Complete', 'Delete', 'Quit']) {
-    console.log("RECIEVED TASKS LIST", tasks)
+    console.log("RECIEVED TASKS LIST", taskList)
     for (s = 0, d =0; s < selectors.length, d < descriptors.length; s++, d++) {
         process.stdout.write(`${selectors[s]}${descriptors[d]}` + " ")
     }
     console.log('\n')
-    process.stdout.write('>')
-    readLine.on('line', (input) => {
-        input = input.toString().toLowerCase()
+    // let arrow = process.stdout.write('>')
+    rl.question('>', input => {
+        let cleanedInput = input.toString().toLowerCase()
         //console.log(`Received: ${input}`)
-        if (input === 'v') {
-            console.log("inside v")
+        if (cleanedInput === 'v') {
+            console.log(`inside v, recieved input: ${cleanedInput}`)
             displayTasks();
-        } else if (input === 'n') {
+        } else if (cleanedInput === 'n') {
             console.log("inside n")
             newTask();
-        } else {
-            console.log("default condition hit, back to base menu")
+        } else if (cleanedInput.includes('c')) {
+            completeTask(cleanedInput, taskList)
+        }
+        else {
+            console.log(`Option: ${input} is not availible, please choose another option`)
             baseMenu();
         }
     })
 }
 
-
 function displayTasks() {
-    const taskNumber = tasks.length
     console.log("tasks.length inside displayTasks()", tasks.length)
     let checkboxOrNoCheckbox = '[ ]'
-    let i = 0
-
-    // PUT IN BASE MENU (baseMenu())
 
     if (tasks.length === 0) {
-        console.log("The tasks list is currently empty, please go back to the base menu and input a new task")
+        console.log("List is empty...")
         console.log('\n')
         baseMenu()
     } else if (tasks.length > 0) {
-        for (i = 0; i < tasks.length; i++) {
-            console.log("SHOULD RETURN ALL TASKS HERE")
-            console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]}`)
+        for (i = 0; i < tasks.length; i++) {  
+            console.log(`IN THE VIEW: ${i} ${checkboxOrNoCheckbox} ${tasks[i]} \n`)
         }
-        console.log("TASKS ARRAY: ", tasks)
-        console.log('\n')
         baseMenu()
     }
 }
 
+function completeTask(input, taskList) {
+  console.log("taskList inside completeTask", taskList)
+  console.log("input inside completeTask", input)
+
+  inputSplitted = input.split('')
+  let indexOfTask = parseInt(inputSplitted[1])
+
+  console.log(taskList[indexOfTask])
+
+  baseMenu()
+}
+
 function newTask() {
-    readLine.question("\nPlease input a task: \n", (answer) => {
+    rl.question("\nPlease input a task: \n", (answer) => {
         if (answer === '') {
             console.log("BLANK TASK INPUT")
         } else if (answer) {
@@ -98,17 +84,17 @@ function newTask() {
     })
 }
 
-// function fillCheckMark() {
+// // function fillCheckMark() {
 
-// }
+// // }
 
-// function checkIfTaskComplete() {
+// // function checkIfTaskComplete() {
 
-// }
+// // }
 
 
 
 output()
 baseMenu()
-// displayTasks()
-// newTask()
+// // displayTasks()
+// // newTask()

@@ -21,7 +21,6 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
     console.log('\n')
     rl.question('>', input => {
         let cleanedInput = input.toString().toLowerCase()
-        console.log('cleanedInput', cleanedInput)
 
         if (cleanedInput === 'v') {
             console.log(`inside v, recieved input: ${cleanedInput}`)
@@ -35,6 +34,9 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
             // need to code a checker function that checks if the number attached beside c exceeds the length of the taskList index or not
         } else if (cleanedInput.includes('d')) {
             deleteTask(cleanedInput, taskList)
+        } else if (cleanedInput === 'q') {
+            console.log("See you soon! 😄")
+            rl.close()
         }
         else {
             console.log(`Option: ${input} is not availible, please choose another option`)

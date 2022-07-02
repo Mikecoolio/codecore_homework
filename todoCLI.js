@@ -34,7 +34,9 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
             console.log("inside n")
             newTask();
         } else if (cleanedInput.includes('c')) {
-            completeTask(cleanedInput, taskList)
+            console.log('inside c')
+            checkTasksArrLength(input, taskList)
+            // need to code a checker function that checks if the number attached beside c exceeds the length of the taskList index or not
         }
         else {
             console.log(`Option: ${input} is not availible, please choose another option`)
@@ -43,9 +45,25 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
     })
 }
 
+function checkTasksArrLength(input, taskList) {
+    let splittedInput = input.split('')
+    let desiredTaskToBeUpdated = parseInt(splittedInput[1])
+
+    if (taskList.length < desiredTaskToBeUpdated) {
+        baseMenu(taskList)
+    } else {
+        completeTask(input.toString().toLowerCase(), taskList)
+    }
+}
+
 function displayTasks(update = []) { // maybe recieve an array with the updatedtask phrase and its index in the tasks array
-    let updatedPhrase = update[0]
     let indexOfUpdatedPhrase = update[1]
+    let updatedTask = update[0]
+    let updatedPhrase = `IN THE VIEW: ${indexOfUpdatedPhrase} ${fullCheckBox} ${updatedTask} \n` 
+
+    console.log("updatedPhrase", updatedPhrase)
+    console.log("indexOfUpdatedPhrase", typeof indexOfUpdatedPhrase)
+
 
     let listOfTasksWithCheckbox = []
     console.log("tasks.length inside displayTasks()", tasks.length)
@@ -59,12 +77,18 @@ function displayTasks(update = []) { // maybe recieve an array with the updatedt
             let phrase = `IN THE VIEW: ${i} ${emptyCheckbox} ${tasks[i]} \n`
             listOfTasksWithCheckbox.push(phrase)
         }
-        console.log(listOfTasksWithCheckbox.join(''))
+        if (update.length = 1) {
+            listOfTasksWithCheckbox[indexOfUpdatedPhrase] = updatedPhrase
+            // console.log("listOfTasksWithCheckbox", listOfTasksWithCheckbox.join(''))
+            let joined = listOfTasksWithCheckbox.join('')
+            console.log("joined", joined)
+        }
+        //console.log(completedTasks.join(''))
         baseMenu(tasks)
     }
 }
 
-function completeTask(input, taskList) {
+function completeTask(input, taskList) { // TASKLIST WILL BE THE PHRASE LIST INSTEAD?
     console.log("taskList inside completeTask", taskList)
     console.log("input inside completeTask", input)
 
@@ -79,7 +103,8 @@ function completeTask(input, taskList) {
     taskList.splice(indexOfTask, 1, taskList[indexOfTask])
     console.log("updatedTaskList", updatedTaskList[0])
 
-    console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${taskList[indexOfTask]} \n`)
+    console.log(`Completed ${taskList[indexOfTask]}`)
+    //console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${taskList[indexOfTask]} \n`)
 
     displayTasks([updatedTaskList, indexOfTask])
 }

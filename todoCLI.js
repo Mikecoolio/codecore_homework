@@ -19,10 +19,10 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
         process.stdout.write(`${selectors[s]}${descriptors[d]}` + " ")
     }
     console.log('\n')
-    // let arrow = process.stdout.write('>')
     rl.question('>', input => {
         let cleanedInput = input.toString().toLowerCase()
-        //console.log(`Received: ${input}`)
+        console.log('cleanedInput', cleanedInput)
+
         if (cleanedInput === 'v') {
             console.log(`inside v, recieved input: ${cleanedInput}`)
             displayTasks();
@@ -31,8 +31,10 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
             newTask();
         } else if (cleanedInput.includes('c')) {
             console.log('inside c')
-            checkTasksArrLength(cleanedInput, taskList)
+            checkTasks(cleanedInput, taskList)
             // need to code a checker function that checks if the number attached beside c exceeds the length of the taskList index or not
+        } else if (cleanedInput.includes('d')) {
+            deleteTask(cleanedInput, taskList)
         }
         else {
             console.log(`Option: ${input} is not availible, please choose another option`)
@@ -41,13 +43,28 @@ function baseMenu(taskList = [], selectors = ['(v)', '(n)', '(cX)', '(dX)', '(q)
     })
 }
 
-function checkTasksArrLength(input, taskList) {
+function deleteTask(input, taskList) {
     let splittedInput = input.split('')
-    let desiredTaskToBeUpdated = parseInt(splittedInput[1])
-    console.log("splittedInput", splittedInput)
-    console.log("desiredTaskToBeUpdated", desiredTaskToBeUpdated)
+    let desiredIndexOfTaskToBeUpdated = parseInt(splittedInput[1])
 
-    if (taskList.length > desiredTaskToBeUpdated) {
+
+    if (taskList.length > desiredIndexOfTaskToBeUpdated) {
+        updatedDeletedTask = taskList.splice(desiredIndexOfTaskToBeUpdated, 1)
+        console.log(`Deleted ${updatedDeletedTask}}`)
+        console.log("taskList after deleting desired task", taskList)
+        baseMenu(taskList)
+    } else {
+        baseMenu(taskList)
+    }
+}
+
+function checkTasks(input, taskList) {
+    let splittedInput = input.split('')
+    let desiredIndexOfTaskToBeUpdated = parseInt(splittedInput[1])
+    // console.log("splittedInput", splittedInput)
+    console.log("desiredIndexOfTaskToBeUpdated", desiredIndexOfTaskToBeUpdated)
+
+    if (taskList.length > desiredIndexOfTaskToBeUpdated) {
         completeTask(input, taskList)
     } else {
         baseMenu(taskList)
@@ -84,10 +101,6 @@ function displayTasks(update = []) { // maybe recieve an array with the updatedt
         //console.log(completedTasks.join(''))
         baseMenu(tasks)
     }
-}
-
-function deleteTask(input) {
-
 }
 
 function completeTask(input, taskList) { // TASKLIST WILL BE THE PHRASE LIST INSTEAD?

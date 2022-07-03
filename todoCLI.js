@@ -67,11 +67,43 @@ function checkTasks(input, taskList) {
     console.log("desiredIndexOfTaskToBeUpdated", desiredIndexOfTaskToBeUpdated)
 
     if (taskList.length > desiredIndexOfTaskToBeUpdated) {
-        completeTask(input, taskList)
+        // console.log("desiredIndexOfTaskToBeUpdated", desiredIndexOfTaskToBeUpdated)
+        // //console.log("taskList[desiredIndexOfTaskToBeUpdated]", taskList[desiredIndexOfTaskToBeUpdated])
+        // console.log(`Completed ${taskList[desiredIndexOfTaskToBeUpdated]}`)
+        
+        updatedTaskList = 
+        taskList.splice(desiredIndexOfTaskToBeUpdated, 1, taskList[desiredIndexOfTaskToBeUpdated])
+        console.log("updatedTaskList", updatedTaskList[0])
+    
+        console.log(`Completed ${taskList[desiredIndexOfTaskToBeUpdated]}`)
+        //console.log(`IN THE VIEW: ${desiredIndexOfTaskToBeUpdated} ${fullCheckBox} ${taskList[desiredIndexOfTaskToBeUpdated]} \n`)
+    
+        displayTasks([updatedTaskList, desiredIndexOfTaskToBeUpdated])
     } else {
         baseMenu(taskList)
     }
 }
+
+// function completeTask(input, taskList) { // TASKLIST WILL BE THE PHRASE LIST INSTEAD?
+//     console.log("taskList inside completeTask", taskList)
+//     console.log("input inside completeTask", input)
+
+//     inputSplitted = input.split('')
+//     let indexOfTask = parseInt(inputSplitted[1])
+
+//     // console.log("indexOfTask", indexOfTask)
+//     // //console.log("taskList[indexOfTask]", taskList[indexOfTask])
+//     // console.log(`Completed ${taskList[indexOfTask]}`)
+    
+//     updatedTaskList = 
+//     taskList.splice(indexOfTask, 1, taskList[indexOfTask])
+//     console.log("updatedTaskList", updatedTaskList[0])
+
+//     console.log(`Completed ${taskList[indexOfTask]}`)
+//     //console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${taskList[indexOfTask]} \n`)
+
+//     displayTasks([updatedTaskList, indexOfTask])
+// }
 
 function displayTasks(update = []) { // maybe recieve an array with the updatedtask phrase and its index in the tasks array
     let indexOfUpdatedPhrase = update[1]
@@ -96,34 +128,13 @@ function displayTasks(update = []) { // maybe recieve an array with the updatedt
         }
         if (update.length = 1) {
             listOfTasksWithCheckbox[indexOfUpdatedPhrase] = updatedPhrase
-            // console.log("listOfTasksWithCheckbox", listOfTasksWithCheckbox.join(''))
+            console.log("listOfTasksWithCheckbox", listOfTasksWithCheckbox)
             let joined = listOfTasksWithCheckbox.join('')
-            console.log("joined", joined)
+            //console.log("joined", joined)
         }
         //console.log(completedTasks.join(''))
         baseMenu(tasks)
     }
-}
-
-function completeTask(input, taskList) { // TASKLIST WILL BE THE PHRASE LIST INSTEAD?
-    console.log("taskList inside completeTask", taskList)
-    console.log("input inside completeTask", input)
-
-    inputSplitted = input.split('')
-    let indexOfTask = parseInt(inputSplitted[1])
-
-    // console.log("indexOfTask", indexOfTask)
-    // //console.log("taskList[indexOfTask]", taskList[indexOfTask])
-    // console.log(`Completed ${taskList[indexOfTask]}`)
-    
-    updatedTaskList = 
-    taskList.splice(indexOfTask, 1, taskList[indexOfTask])
-    console.log("updatedTaskList", updatedTaskList[0])
-
-    console.log(`Completed ${taskList[indexOfTask]}`)
-    //console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${taskList[indexOfTask]} \n`)
-
-    displayTasks([updatedTaskList, indexOfTask])
 }
 
 function newTask() {

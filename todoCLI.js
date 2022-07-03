@@ -84,28 +84,7 @@ function checkTasks(input, taskList) {
     }
 }
 
-// function completeTask(input, taskList) { // TASKLIST WILL BE THE PHRASE LIST INSTEAD?
-//     console.log("taskList inside completeTask", taskList)
-//     console.log("input inside completeTask", input)
-
-//     inputSplitted = input.split('')
-//     let indexOfTask = parseInt(inputSplitted[1])
-
-//     // console.log("indexOfTask", indexOfTask)
-//     // //console.log("taskList[indexOfTask]", taskList[indexOfTask])
-//     // console.log(`Completed ${taskList[indexOfTask]}`)
-    
-//     updatedTaskList = 
-//     taskList.splice(indexOfTask, 1, taskList[indexOfTask])
-//     console.log("updatedTaskList", updatedTaskList[0])
-
-//     console.log(`Completed ${taskList[indexOfTask]}`)
-//     //console.log(`IN THE VIEW: ${indexOfTask} ${fullCheckBox} ${taskList[indexOfTask]} \n`)
-
-//     displayTasks([updatedTaskList, indexOfTask])
-// }
-
-function displayTasks(update = []) { // maybe recieve an array with the updatedtask phrase and its index in the tasks array
+function displayTasks(update = []) { 
     let indexOfUpdatedPhrase = update[1]
     let updatedTask = update[0]
     let updatedPhrase = `IN THE VIEW: ${indexOfUpdatedPhrase} ${fullCheckBox} ${updatedTask} \n` 
@@ -126,12 +105,18 @@ function displayTasks(update = []) { // maybe recieve an array with the updatedt
             let phrase = `IN THE VIEW: ${i} ${emptyCheckbox} ${tasks[i]} \n`
             listOfTasksWithCheckbox.push(phrase)
         }
+
         if (update.length = 1) {
-            listOfTasksWithCheckbox[indexOfUpdatedPhrase] = updatedPhrase
-            console.log("listOfTasksWithCheckbox", listOfTasksWithCheckbox)
-            let joined = listOfTasksWithCheckbox.join('')
-            //console.log("joined", joined)
+            for (i = 0; i < listOfTasksWithCheckbox.length; i++) {
+                if (i === indexOfUpdatedPhrase) {
+                    listOfTasksWithCheckbox[i] = updatedPhrase
+                }
+            }        
         }
+        // listOfTasksWithCheckbox[indexOfUpdatedPhrase] = updatedPhrase
+        console.log("listOfTasksWithCheckbox", listOfTasksWithCheckbox)
+        let joined = listOfTasksWithCheckbox.join('')
+        console.log("joined", joined)
         //console.log(completedTasks.join(''))
         baseMenu(tasks)
     }
@@ -150,17 +135,5 @@ function newTask() {
     })
 }
 
-// // function fillCheckMark() {
-
-// // }
-
-// // function checkIfTaskComplete() {
-
-// // }
-
-
-
 output()
 baseMenu()
-// // displayTasks()
-// // newTask()

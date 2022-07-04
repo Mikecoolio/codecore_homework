@@ -1,0 +1,31 @@
+{
+  "name": "super_team_picker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mikecoolio/codecore_homework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mikecoolio/codecore_homework/issues"
+  },
+  "homepage": "https://github.com/Mikecoolio/codecore_homework#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "knex": "^2.1.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18",
+    "faker": "^6.6.6"
+  }
+}

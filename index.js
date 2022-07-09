@@ -36,8 +36,8 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
-// const cohortRouter = require("./routes/cohortRouter")
-// app.use("/cohorts", cohortRouter)
+const cohortRouter = require("./router/cohortsRouter")
+app.use("/cohorts", cohortRouter)
 
 const PORT = 6464
 const HOST = 'localhost'

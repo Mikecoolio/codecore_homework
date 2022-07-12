@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
-const cohortRouter = require("./router/cohortsRouter")
+const cohortRouter = require("./router/cohorts")
 app.use("/cohorts", cohortRouter)
 
 const PORT = 6464

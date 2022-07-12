@@ -1,0 +1,20 @@
+<%- include("../partials/header.ejs") %>
+<h1>SHOW PAGE</h1>
+<div class="card mb-4">
+  <% if(cohort.logo_url) { %>
+    <img class="card-img-top" src="<%- cohort.logo_url %>" alt="cohort logo">
+  <% } %>
+  <div class="card-body">
+    <h5><%- cohort.name %></h5>
+    <p class="card-body">
+      <%- cohort.members %>
+    </p>
+    <form action="/cohorts/<%- cohort.id %>" method="DELETE">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" class="btn btn-outline-danger" value="Delete">
+    </form>
+    <a href="/cohorts/<%- cohort.id %>/edit">Edit</a>
+  </div>  
+</div>
+
+<%- include("../partials/footer.ejs") %>

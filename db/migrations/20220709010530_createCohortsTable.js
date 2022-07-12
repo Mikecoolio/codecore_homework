@@ -6,9 +6,8 @@
     return knex.schema.createTable('cohorts', table => {
       table.primary('id');
       table.increments('id');
-      table.text('members');
+      table.string('members');
       table.string('name');
-      table.text('imageUrl');
     })
   };
   

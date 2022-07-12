@@ -1,0 +1,17 @@
+<%- include("../partials/header.ejs") %>
+  <h1>Cohorts Index</h1>
+  <div>
+    <% for (let cohort of cohorts) { %>
+      <div class="card mb-4">
+        <div class="card-body">
+          <a href="/cohorts/<%- cohort.id %>">
+            <h5 class="card-title"><%- cohort.name %></h5>
+          </a>
+          <p class="card-text"><%- cohort.members %></p>
+          <p class="card-text"><%- cohort.logo_url %></p>
+        </div>
+      </div>
+    <% } %>
+  </div>
+
+<%- include("../partials/footer.ejs") %>

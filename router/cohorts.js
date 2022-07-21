@@ -55,6 +55,13 @@ router.post('/', (req, res) => {
     })
 })
 
+router.delete("/:id", (req, res) => {
+    knex('cohorts')
+    .where('id', req.params.id)
+    .del()
+    .then(() => res.redirect("/cohorts"))
+})
+
 
 
 module.exports = router

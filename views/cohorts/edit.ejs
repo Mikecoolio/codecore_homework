@@ -1,0 +1,18 @@
+<%- include("../partials/header.ejs") %>
+<p>EDIT PAGE</p>
+
+<form action="/cohorts/<%=cohort.id %>" method="POST">
+    <div>
+        
+        Logo
+    </div>
+    <div>
+        Name
+    </div>
+    <div>
+        Members
+    </div>
+
+    <input type="hidden" name="_method" value="PATCH">
+    <input type="submit" value="Update">
+</form>

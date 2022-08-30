@@ -28,14 +28,14 @@ router.get('/:id', (req, res) => {
     })   
 })
 
-router.get('/new', (req, res) => {
-    knex('cohorts')
-    .where('id', req.params.id)
-    .first()
-    .then(cohort => {
-        res.render('cohorts/show', {cohort: cohort})
-    })
-})
+// router.get('/new', (req, res) => {
+//     knex('cohorts')
+//     .where('id', req.params.id)
+//     .first()
+//     .then(cohort => {
+//         res.render('cohorts/show', {cohort: cohort})
+//     })
+// })
 
 router.post('/', (req, res) => {
     console.log(req.body.name)
@@ -55,13 +55,21 @@ router.post('/', (req, res) => {
     })
 })
 
-router.delete("/:id", (req, res) => {
-    knex('cohorts')
+router.delete('/:id', (req, res) => {
+    knex('cohort')
     .where('id', req.params.id)
-    .del()
+    .delete()
     .then(() => res.redirect("/cohorts"))
 })
 
+router.get("/:id/edit", (req, res) => {
+    knex('cohorts')
+    .where('id', req.params.id)
+    .first()
+    .then(cohort => {
+        res.render('cohorts/edit', {cohort: cohort})
+    })
+})
 
 
 module.exports = router

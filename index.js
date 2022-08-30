@@ -30,7 +30,7 @@ app.use((req,res, next) => {
   
     res.locals.username = username;
     next();
-  })
+})
 
 app.get('/', (req, res) => {
     res.render('home')

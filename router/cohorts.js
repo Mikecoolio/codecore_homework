@@ -28,15 +28,6 @@ router.get('/:id', (req, res) => {
     })   
 })
 
-// router.get('/new', (req, res) => {
-//     knex('cohorts')
-//     .where('id', req.params.id)
-//     .first()
-//     .then(cohort => {
-//         res.render('cohorts/show', {cohort: cohort})
-//     })
-// })
-
 router.post('/', (req, res) => {
     console.log(req.body.name)
     console.log(req.body.logo_url)
@@ -50,7 +41,7 @@ router.post('/', (req, res) => {
     })
     .returning('*')
     .then(cohorts => {
-        const cohort = cohorts[0]
+        const cohort = cohorts
         res.redirect(`cohorts/${cohort.id}`)
     })
 })
@@ -58,7 +49,7 @@ router.post('/', (req, res) => {
 router.delete('/:id', (req, res) => {
     knex('cohort')
     .where('id', req.params.id)
-    .delete()
+    .del()
     .then(() => res.redirect("/cohorts"))
 })
 
@@ -71,5 +62,16 @@ router.get("/:id/edit", (req, res) => {
     })
 })
 
+router.patch("/:id", (req, res) => {
+    const cohort = {
+        name: req.body.name,
+        members: req.body.members,
+        logo_url: req.body.logo_url
+    }
+    knex('cohort')
+        .where('id', req.params.id)
+        .update(cohort)
+        .then(() => res.redirect(`cohorts/${cohort.id}`))
+})
 
 module.exports = router

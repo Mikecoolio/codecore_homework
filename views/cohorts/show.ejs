@@ -9,8 +9,8 @@
     <p class="card-body">
       <%- cohort.members %>
     </p>
-    <form action="/cohorts/<%= cohort.id %>" method="POST"><%#- cohort.id %>
-      <input type="hidden" value="DELETE" name="_method">
+    <form action="/cohorts/<%= cohort.id %>" method="POST">
+      <input type="hidden" value="DELETE">
       <input type="submit" value="Delete" class="btn btn-outline-danger">
     </form>
     <a href="/cohorts/<%- cohort.id %>/edit">Edit</a>

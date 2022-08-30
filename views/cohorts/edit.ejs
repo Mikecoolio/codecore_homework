@@ -1,0 +1,19 @@
+<%- include("../partials/header.ejs") %>
+<p>EDIT PAGE</p>
+
+<form action="/cohorts/<%=cohort.id %>" method="POST">
+    <div>
+        <label for="logo">Logo Url</label>
+        <input type="url" name="logo_url" value="<%=cohort.logo_url%>"/>
+    </div>
+    <div>
+        <label for="logo">Name</label>
+        <input type="text" name="name" value="<%=cohort.name%>"/>
+    </div>
+    <div>
+        <label for="logo">Members</label>
+        <input type="text" name="members" value="<%=cohort.members%>"/>
+        <input type="hidden" name="fname" value="PATCH">
+        <input type="submit" name="fname" value="Update">
+    </div>
+</form>

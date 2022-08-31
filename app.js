@@ -32,19 +32,7 @@ for (i=0;i<alphabet.length;i++) {
 const buttons = document.querySelectorAll('button')
 buttons.forEach(button => {
     button.className = 'button'
-    // button.setAttribute('class', "active")
-    // button.setAttribute('onclick', changeColor(button))
 });
-
-const allButtons = document.querySelectorAll('.button')
-
-allButtons.forEach(button => {
-    let eventListener = (event) => {
-        button.style.backgroundColor = 'orange'
-    }
-    button.addEventListener('click', eventListener)
-})
-
 
 // Make buttons clickable
 let spans = document.getElementsByTagName('span')
@@ -56,52 +44,29 @@ const make_clickable = document.getElementsByClassName('button')
 for (i=0;i<make_clickable.length;i++) {
     make_clickable[i].onclick = function(elem){
         guess = this.innerHTML.toLowerCase()
-        console.log(`Clicked ${guess}`)
         checkAnswer(guess)
     }
 }
-
-// function changeColor(button) {
-//     // button.style.color = 'orange'
-//     // button.style.color = orange
-// // Highlight buttons after it is clicked
-// // let highlightButtons = document.getElementsByClassName('button')
-// // for (i=0;i<highlightButtons.length;i++) {
-// //     // console.log(highlightButtons[i])
-// //     // highlightButtons[i].onclick = function(button){
-// //     //     console.log("CLICKED", typeof button)
-// //     //     button.setAttribute('color', 'green')
-        
-        
-// //     // }
-// // }
-// }
-
-
-// $(highlightButtons).onclick
 
 // Answer check
 function checkAnswer(guess) {
     let charcodesArr = []
     let indexOfGuessedLetterArr = []
-    // let ArrForConvertingFromCharcodeToStr = []
 
-    console.log(`The guess is ${guess}`)
+    // console.log(`The guess is ${guess}`)
     splitted_answer = answer.split('')
 
     // Convert each string into charcode and put it into the charcodesArr
     for(let i = 0; i < splitted_answer.length; i++) {
         charcodesArr.push(splitted_answer[i].charCodeAt(splitted_answer[i])) 
-        console.log("charcodesArr", charcodesArr)   
+        // console.log("charcodesArr", charcodesArr)   
     }
     // console.log("ArrForConvertingFromCharcodeToStr", ArrForConvertingFromCharcodeToStr)
 
 
     for(i=0; i<splitted_answer.length; i++) {
-        // console.log(splitted_answer[i]) 
-        // console.log("i", i)
         if(guess === splitted_answer[i]) {
-            console.log("RIGHT LETTER", guess)
+            // console.log("RIGHT LETTER", guess)
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
             let findLetter = guess
             let regexSearch = new RegExp(findLetter, 'gi')
@@ -112,28 +77,23 @@ function checkAnswer(guess) {
             }
             // Grab the unique chars
             var uniqueChars = [...new Set(indexOfGuessedLetterArr)];
-            // console.log("uniqueChars", uniqueChars)
-            // console.log(`GUESSED RIGHT LETTER: ${splitted_answer[i]}`)
             // the line below sets the answer to the html elem
-
-            // spans[0].innerText = guess 
         }
         else {
-            console.log("WRONG LETTER")       
+            console.log("WRONG LETTER inside checkAnswer")       
         }
     }
 
 
     function renderLetterToDom() {
-        for(i=0; i<splitted_answer.length; i++) {    
-            // console.log("splitted_answer.length", splitted_answer.length)    
+        for(i=0; i<splitted_answer.length; i++) {       
             if(guess === splitted_answer[i]) {
                 var guessedLetterArrFixedIndices = uniqueChars.map(index => index - 1)
 
                 loopThroughSpans(guess, guessedLetterArrFixedIndices)
             }
             else {
-                console.log("LETTER WRONG")
+                console.log("LETTER WRONG inside renderLetterToDom")
             }
     
         }
@@ -148,12 +108,12 @@ function checkAnswer(guess) {
         console.log("LETTER INSIDE loopThroughSpans()", letter) // y
         for (i=0; i<grabSpans.length; i++) {
             if (guessedLetterArrFixedIndices[i - 1] != undefined) {
-                console.log("guessedLetterArrFixedIndices", guessedLetterArrFixedIndices[i - 1])
+                // console.log("guessedLetterArrFixedIndices", guessedLetterArrFixedIndices[i - 1])
                 
-                console.log("grabSpans[i] inside grabSpanId()", spanIdStringToInt)
+                // console.log("grabSpans[i] inside grabSpanId()", spanIdStringToInt)
                 if (spanIdStringToInt.id != undefined) {
-                    console.log("grabSpans[i].id inside grabSpanId()", spanIdStringToInt.id)
-                    console.log("typeof grabSpans[i].id", typeof spanIdStringToInt.id)
+                    // console.log("grabSpans[i].id inside grabSpanId()", spanIdStringToInt.id)
+                    // console.log("typeof grabSpans[i].id", typeof spanIdStringToInt.id)
     
                 }
 
@@ -164,21 +124,17 @@ function checkAnswer(guess) {
     
 
     function matcher(guessedLetterArrFixedIndices, spanId) {
-        // console.log("guessedLetterArrFixedIndices inside getSpanId", guessedLetterArrFixedIndices) // 1
-
-        console.log("spanId inside matcher", spanId) // 1
-        console.log("typeof spanId inside matcher", typeof spanId)
-        console.log("guessedLetterArrFixedIndices inside matcher", guessedLetterArrFixedIndices) // 1
-        console.log("typeof guessedLetterArrFixedIndices", typeof guessedLetterArrFixedIndices) // number
+        // console.log("spanId inside matcher", spanId) // 1
+        // console.log("typeof spanId inside matcher", typeof spanId)
+        // console.log("guessedLetterArrFixedIndices inside matcher", guessedLetterArrFixedIndices) // 1
+        // console.log("typeof guessedLetterArrFixedIndices", typeof guessedLetterArrFixedIndices) // number
 
         let findSpanId = document.getElementById(spanId)
+        console.log("guessedLetterArrFixedIndices inside matcher", guessedLetterArrFixedIndices)
         console.log("findSpanId inside matcher", findSpanId)
         findSpanId.innerText = guess
 
     }
-
-
-
 }
 
 // Lives Check
@@ -191,3 +147,16 @@ function livesChecker(minus_a_life) {
     console.log(`The player has ${default_lives} remaining`)
 }
 
+
+const allButtons = document.querySelectorAll('.button')
+
+allButtons.forEach(button => {
+    let eventListener = (event) => {
+        button.style.backgroundColor = 'orange'
+    }
+    button.addEventListener('click', eventListener)
+})
+
+$('.button').on('click', function(event) {
+    event.preventDefault()
+})

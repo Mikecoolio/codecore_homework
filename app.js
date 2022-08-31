@@ -99,7 +99,13 @@ function checkAnswer(guess) {
             // console.log("splitted_answer.length", splitted_answer.length)    
             if(guess === splitted_answer[i]) {
                 var guessedLetterArrFixedIndices = uniqueChars.map(index => index - 1)
-                console.log("index of guessed letter", guessedLetterArrFixedIndices)
+                // console.log("i", i)
+                // console.log("guess", guess)
+                // console.log("index of guessed letter", guessedLetterArrFixedIndices[i - 1])
+
+                // console.log("typeof guessedLetterArrFixedIndices",typeof guessedLetterArrFixedIndices[i - 1]) // number
+                // console.log("index of guessed letter (guessedLetterArrFixedIndices[i])", guessedLetterArrFixedIndices[i])
+                // console.log("typeof guessedLetterArrFixedIndices[i]", typeof guessedLetterArrFixedIndices[i])
                 // for (i=0; i<guessedLetterArrFixedIndices.length; i++) {
 
                     // if (parseInt(grabSpans[i].id) === guessedLetterArrFixedIndices[i]) {
@@ -111,7 +117,7 @@ function checkAnswer(guess) {
                     //     //     if 
                     //     // }
                     // }
-                
+                loopThroughSpans(guess, guessedLetterArrFixedIndices)
             }
             else {
                 console.log("LETTER WRONG")
@@ -121,42 +127,36 @@ function checkAnswer(guess) {
     }
     renderLetterToDom()
 
-    function loopThroughSpans() {
+    function loopThroughSpans(letter, guessedLetterArrFixedIndices) {
         let grabSpans = document.getElementsByTagName('span')
+        let spanIdStringToInt = parseInt(grabSpans[i].id)
 
+        console.log("typeof letter", typeof letter) // string
+        console.log("LETTER INSIDE loopThroughSpans()", letter) // y
         for (i=0; i<grabSpans.length; i++) {
-            // console.log("grabSpans.length", grabSpans.length)
+            if (guessedLetterArrFixedIndices[i - 1] != undefined) {
+                console.log("guessedLetterArrFixedIndices", guessedLetterArrFixedIndices[i - 1])
+                
+                console.log("grabSpans[i] inside grabSpanId()", spanIdStringToInt)
+                if (spanIdStringToInt.id != undefined) {
+                    console.log("grabSpans[i].id inside grabSpanId()", spanIdStringToInt.id)
+                    console.log("typeof grabSpans[i].id", typeof spanIdStringToInt.id)
+    
+                }
 
-            if (guessedLetterArrFixedIndices[i] != undefined) {
-                console.log("spans indices id (guessedLetterArrFixedIndices[i])", guessedLetterArrFixedIndices[i])
-                console.log("typeof guessedLetterArrFixedIndices[i]", typeof guessedLetterArrFixedIndices[i])
-                console.log("parseInt(grabSpans[i].id)", parseInt(grabSpans[i].id)) // 0
-                console.log("guessedLetterArrFixedIndices[i]", guessedLetterArrFixedIndices[i]) // 1
-            // if (parseInt(grabSpans[i].id) === guessedLetterArrFixedIndices[i]) {
-
-            // }
-            //     console.log(`${grabSpans[i].id} MATCHES WITH ${guessedLetterArrFixedIndices[i]}`)
-            //     console.log("grabSpans[i]", grabSpans[i])
-
-                // if (parseInt(grabSpans[i].id) === guessedLetterArrFixedIndices[i]) {
-                //     console.log(`${grabSpans[i].id} MATCHES WITH ${guessedLetterArrFixedIndices[i]}`)
-                //     console.log("grabSpans[i]", grabSpans[i])
-                //     // grabSpans[i].innerText = guess
-                //     // for (i=0; i<spans.length; i++) {
-                //     //     console.log("spans", spans[i].id)
-                //     //     if 
-                //     // }
-                // }
+                matcher(guessedLetterArrFixedIndices[i - 1], spanIdStringToInt)
             }
-
-            // console.log("parseInt(grabSpans[i].id", parseInt(grabSpans[i].id))
-            // console.log("typeof parseInt(grabSpans[i].id", typeof parseInt(grabSpans[i].id))
-            
-            // console.log("guessedLetterArrFixedIndices[i]", guessedLetterArrFixedIndices[i])
-
         }
     }
+    
 
+    function matcher(guessedLetterArrFixedIndices, spanId) {
+        // console.log("guessedLetterArrFixedIndices inside getSpanId", guessedLetterArrFixedIndices) // 1
+        console.log("typeof guessedLetterArrFixedIndices", typeof guessedLetterArrFixedIndices) // number
+
+        console.log("spanId inside matcher", spanId)
+        console.log("guessedLetterArrFixedIndices inside matcher", guessedLetterArrFixedIndices) // 1
+    }
 
     // for (i=0; i<guessedLetterArrFixedIndices.length; i++) {
     //     console.log("spans indices id", guessedLetterArrFixedIndices[i])

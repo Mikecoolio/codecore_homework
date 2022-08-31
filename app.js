@@ -1,4 +1,7 @@
+// const { result } = require("lodash");
+
 let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+let result = []
 alphabet = alphabet.toUpperCase()
 alphabet = alphabet.split('')
 str = '\u0073\u0332' // = 's̲'
@@ -49,30 +52,152 @@ for (i=0;i<make_clickable.length;i++) {
 
 // Answer check
 function checkAnswer(guess) {
+    let charcodesArr = []
+    let indexOfGuessedLetterArr = []
+    // let ArrForConvertingFromCharcodeToStr = []
+
     console.log(`The guess is ${guess}`)
     splitted_answer = answer.split('')
-    for(i=0; i<splitted_answer.length; i++) {
-        console.log(splitted_answer[i]) 
-        console.log("i", i)
-        if(guess === splitted_answer[i]) {
-            // answer_arr[i] = ''
 
+    // Convert each string into charcode and put it into the charcodesArr
+    for(let i = 0; i < splitted_answer.length; i++) {
+        charcodesArr.push(splitted_answer[i].charCodeAt(splitted_answer[i])) 
+        console.log("charcodesArr", charcodesArr)   
+    }
+    // console.log("ArrForConvertingFromCharcodeToStr", ArrForConvertingFromCharcodeToStr)
+
+
+    for(i=0; i<splitted_answer.length; i++) {
+        // console.log(splitted_answer[i]) 
+        // console.log("i", i)
+        if(guess === splitted_answer[i]) {
+            console.log("RIGHT LETTER", guess)
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
             let findLetter = guess
             let regexSearch = new RegExp(findLetter, 'gi')
-            indexOfGuessedLetterArr = []
-
+        
             // Grab the index/indices of the guessed letter
             while(regexSearch.exec(answer)) {
-                indexOfGuessedLetterArr.push(regexSearch.lastIndex)
+                indexOfGuessedLetterArr.push(regexSearch.lastIndex)      
             }
-            console.log(`GUESSED RIGHT LETTER: ${splitted_answer[i]}`)
-            spans[0].innerText = str
-            console.log("index of answer", answer.indexOf(guess))
+            // Grab the unique chars
+            var uniqueChars = [...new Set(indexOfGuessedLetterArr)];
+            // console.log("uniqueChars", uniqueChars)
+            // console.log(`GUESSED RIGHT LETTER: ${splitted_answer[i]}`)
+            // the line below sets the answer to the html elem
+
+            // spans[0].innerText = guess 
         }
-        guessedLetterArrFixedIndices = indexOfGuessedLetterArr.map(index => index - 1)
-        console.log("index of guessed letter", guessedLetterArrFixedIndices)
+        else {
+            console.log("WRONG LETTER")       
+        }
     }
+
+
+    function renderLetterToDom() {
+        for(i=0; i<splitted_answer.length; i++) {    
+            // console.log("splitted_answer.length", splitted_answer.length)    
+            if(guess === splitted_answer[i]) {
+                var guessedLetterArrFixedIndices = uniqueChars.map(index => index - 1)
+                console.log("index of guessed letter", guessedLetterArrFixedIndices)
+                // for (i=0; i<guessedLetterArrFixedIndices.length; i++) {
+
+                    // if (parseInt(grabSpans[i].id) === guessedLetterArrFixedIndices[i]) {
+                    //     console.log("MATCHES")
+                    //     console.log(grabSpans[i])
+                    //     // grabSpans[i].innerText = guess
+                    //     // for (i=0; i<spans.length; i++) {
+                    //     //     console.log("spans", spans[i].id)
+                    //     //     if 
+                    //     // }
+                    // }
+                
+            }
+            else {
+                console.log("LETTER WRONG")
+            }
+    
+        }
+    }
+    renderLetterToDom()
+
+    function loopThroughSpans() {
+        let grabSpans = document.getElementsByTagName('span')
+
+        for (i=0; i<grabSpans.length; i++) {
+            // console.log("grabSpans.length", grabSpans.length)
+
+            if (guessedLetterArrFixedIndices[i] != undefined) {
+                console.log("spans indices id (guessedLetterArrFixedIndices[i])", guessedLetterArrFixedIndices[i])
+                console.log("typeof guessedLetterArrFixedIndices[i]", typeof guessedLetterArrFixedIndices[i])
+                console.log("parseInt(grabSpans[i].id)", parseInt(grabSpans[i].id)) // 0
+                console.log("guessedLetterArrFixedIndices[i]", guessedLetterArrFixedIndices[i]) // 1
+            // if (parseInt(grabSpans[i].id) === guessedLetterArrFixedIndices[i]) {
+
+            // }
+            //     console.log(`${grabSpans[i].id} MATCHES WITH ${guessedLetterArrFixedIndices[i]}`)
+            //     console.log("grabSpans[i]", grabSpans[i])
+
+                // if (parseInt(grabSpans[i].id) === guessedLetterArrFixedIndices[i]) {
+                //     console.log(`${grabSpans[i].id} MATCHES WITH ${guessedLetterArrFixedIndices[i]}`)
+                //     console.log("grabSpans[i]", grabSpans[i])
+                //     // grabSpans[i].innerText = guess
+                //     // for (i=0; i<spans.length; i++) {
+                //     //     console.log("spans", spans[i].id)
+                //     //     if 
+                //     // }
+                // }
+            }
+
+            // console.log("parseInt(grabSpans[i].id", parseInt(grabSpans[i].id))
+            // console.log("typeof parseInt(grabSpans[i].id", typeof parseInt(grabSpans[i].id))
+            
+            // console.log("guessedLetterArrFixedIndices[i]", guessedLetterArrFixedIndices[i])
+
+        }
+    }
+
+
+    // for (i=0; i<guessedLetterArrFixedIndices.length; i++) {
+    //     console.log("spans indices id", guessedLetterArrFixedIndices[i])
+    //     // for(i=0; i<grabSpans.length; i++) {
+    //     //     if (guessedLetterArrFixedIndices[i] = grabSpans[i].id) {
+    //     //         // console.log("MATCHED!", guessedLetterArrFixedIndices)
+    //     //         // console.log("MATCHED!", grabSpans[i].id)
+    //     //         // grabSpans[i].innerText = guessedLetterArrFixedIndices[i] 
+    //     //     }
+    //     // }
+    // //     // console.log("grabSpans[i]", grabSpans[i])
+    // //     // if (guess === grabSpans[i]) {
+    // //     //     console.log("INDICES MATCHED!", i)
+    // //     //     // grabSpans[i].innerText = guess
+    // //     // }
+    // //     for (i=0; i<spans.length; i++) {
+
+    // //         console.log("inside for loop for spans", i)
+    // //     }
+    // }
+
+    // console.log(typeof guessedLetterArrFixedIndices[0])
+    // console.log("guessedLetterArrFixedIndices.length", guessedLetterArrFixedIndices.length)
+
+    // for(i=0; i<guessedLetterArrFixedIndices.length; i++) {
+    //     for(i=0; i<splitted_answer.length; i++) {
+    //         console.log("splitted_answer[i]", splitted_answer[i])
+    //     }
+    //     console.log("inside inner loop for guessedLetterArrFixedIndices")
+
+    // }
+
+    // for (i=0; i<spans.length; i++) {
+    //     console.log("spans indices", i)
+    //     // console.log("spans[i]", spans[i])
+    //     if (guess === spans[i]) {
+    //         console.log("INDICES MATCHED!", i)
+    //         // spans[i].innerText = guess
+    //     }
+    // }
+
 }
 
 function get_elem_by_id() {

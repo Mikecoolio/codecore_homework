@@ -1,12 +1,8 @@
-// const { result } = require("lodash");
-
 let alphabet = 'abcdefghijklmnopqrstuvwxyz';
 let result = []
 alphabet = alphabet.toUpperCase()
 alphabet = alphabet.split('')
 str = '\u0073\u0332' // = 's̲'
-// unicode letters a-y (lowercase) range = U+0061 - U+0079
-// z (lowercase) is U+007A
 
 let answer = "system"
 
@@ -30,12 +26,27 @@ for (i=0;i<alphabet.length;i++) {
     guess_the_word_header = document.querySelector('.guess_the_word_header')
     guess_the_word_header.appendChild(document.createElement('button')).innerText = alphabet[i].toUpperCase()
 }
+
+
+
 const buttons = document.querySelectorAll('button')
 buttons.forEach(button => {
     button.className = 'button'
+    // button.setAttribute('class', "active")
+    // button.setAttribute('onclick', changeColor(button))
 });
 
-// Mkae buttons clickable
+const allButtons = document.querySelectorAll('.button')
+
+allButtons.forEach(button => {
+    let eventListener = (event) => {
+        button.style.backgroundColor = 'orange'
+    }
+    button.addEventListener('click', eventListener)
+})
+
+
+// Make buttons clickable
 let spans = document.getElementsByTagName('span')
 for (i=0;i<spans.length;i++) {
     spans[i].className = 'span'
@@ -49,6 +60,25 @@ for (i=0;i<make_clickable.length;i++) {
         checkAnswer(guess)
     }
 }
+
+// function changeColor(button) {
+//     // button.style.color = 'orange'
+//     // button.style.color = orange
+// // Highlight buttons after it is clicked
+// // let highlightButtons = document.getElementsByClassName('button')
+// // for (i=0;i<highlightButtons.length;i++) {
+// //     // console.log(highlightButtons[i])
+// //     // highlightButtons[i].onclick = function(button){
+// //     //     console.log("CLICKED", typeof button)
+// //     //     button.setAttribute('color', 'green')
+        
+        
+// //     // }
+// // }
+// }
+
+
+// $(highlightButtons).onclick
 
 // Answer check
 function checkAnswer(guess) {
@@ -99,24 +129,7 @@ function checkAnswer(guess) {
             // console.log("splitted_answer.length", splitted_answer.length)    
             if(guess === splitted_answer[i]) {
                 var guessedLetterArrFixedIndices = uniqueChars.map(index => index - 1)
-                // console.log("i", i)
-                // console.log("guess", guess)
-                // console.log("index of guessed letter", guessedLetterArrFixedIndices[i - 1])
 
-                // console.log("typeof guessedLetterArrFixedIndices",typeof guessedLetterArrFixedIndices[i - 1]) // number
-                // console.log("index of guessed letter (guessedLetterArrFixedIndices[i])", guessedLetterArrFixedIndices[i])
-                // console.log("typeof guessedLetterArrFixedIndices[i]", typeof guessedLetterArrFixedIndices[i])
-                // for (i=0; i<guessedLetterArrFixedIndices.length; i++) {
-
-                    // if (parseInt(grabSpans[i].id) === guessedLetterArrFixedIndices[i]) {
-                    //     console.log("MATCHES")
-                    //     console.log(grabSpans[i])
-                    //     // grabSpans[i].innerText = guess
-                    //     // for (i=0; i<spans.length; i++) {
-                    //     //     console.log("spans", spans[i].id)
-                    //     //     if 
-                    //     // }
-                    // }
                 loopThroughSpans(guess, guessedLetterArrFixedIndices)
             }
             else {
@@ -152,65 +165,23 @@ function checkAnswer(guess) {
 
     function matcher(guessedLetterArrFixedIndices, spanId) {
         // console.log("guessedLetterArrFixedIndices inside getSpanId", guessedLetterArrFixedIndices) // 1
+
+        console.log("spanId inside matcher", spanId) // 1
+        console.log("typeof spanId inside matcher", typeof spanId)
+        console.log("guessedLetterArrFixedIndices inside matcher", guessedLetterArrFixedIndices) // 1
         console.log("typeof guessedLetterArrFixedIndices", typeof guessedLetterArrFixedIndices) // number
 
-        console.log("spanId inside matcher", spanId)
-        console.log("guessedLetterArrFixedIndices inside matcher", guessedLetterArrFixedIndices) // 1
+        let findSpanId = document.getElementById(spanId)
+        console.log("findSpanId inside matcher", findSpanId)
+        findSpanId.innerText = guess
+
     }
 
-    // for (i=0; i<guessedLetterArrFixedIndices.length; i++) {
-    //     console.log("spans indices id", guessedLetterArrFixedIndices[i])
-    //     // for(i=0; i<grabSpans.length; i++) {
-    //     //     if (guessedLetterArrFixedIndices[i] = grabSpans[i].id) {
-    //     //         // console.log("MATCHED!", guessedLetterArrFixedIndices)
-    //     //         // console.log("MATCHED!", grabSpans[i].id)
-    //     //         // grabSpans[i].innerText = guessedLetterArrFixedIndices[i] 
-    //     //     }
-    //     // }
-    // //     // console.log("grabSpans[i]", grabSpans[i])
-    // //     // if (guess === grabSpans[i]) {
-    // //     //     console.log("INDICES MATCHED!", i)
-    // //     //     // grabSpans[i].innerText = guess
-    // //     // }
-    // //     for (i=0; i<spans.length; i++) {
 
-    // //         console.log("inside for loop for spans", i)
-    // //     }
-    // }
-
-    // console.log(typeof guessedLetterArrFixedIndices[0])
-    // console.log("guessedLetterArrFixedIndices.length", guessedLetterArrFixedIndices.length)
-
-    // for(i=0; i<guessedLetterArrFixedIndices.length; i++) {
-    //     for(i=0; i<splitted_answer.length; i++) {
-    //         console.log("splitted_answer[i]", splitted_answer[i])
-    //     }
-    //     console.log("inside inner loop for guessedLetterArrFixedIndices")
-
-    // }
-
-    // for (i=0; i<spans.length; i++) {
-    //     console.log("spans indices", i)
-    //     // console.log("spans[i]", spans[i])
-    //     if (guess === spans[i]) {
-    //         console.log("INDICES MATCHED!", i)
-    //         // spans[i].innerText = guess
-    //     }
-    // }
 
 }
 
-function get_elem_by_id() {
-    let spans = document.getElementsByTagName('span')
-
-    for (i=0;i<spans.length;i++) {
-        let element = document.getElementById(`${i}`)//[i]
-        console.log("element", element.innerHTML)
-    }
-}
-get_elem_by_id()
-
-// Lives check
+// Lives Check
 function livesChecker(minus_a_life) {
     let default_lives = 10
 
@@ -219,5 +190,4 @@ function livesChecker(minus_a_life) {
     }
     console.log(`The player has ${default_lives} remaining`)
 }
-
 

@@ -3,15 +3,27 @@ let result = []
 alphabet = alphabet.toUpperCase()
 alphabet = alphabet.split('')
 str = '\u0073\u0332' // = 's̲'
-
+const allButtons = document.querySelectorAll('.button')
 let answer = "system"
+let images = ["../public/images/gallows.jpg", "../public/images/gallows+head.jpg", "../public/images/gallows+head+torso.jpg",
+ "../public/images/gallows+torso+2leg.jpg", "../public/images/gallows+torso+2leg+2arm.jpg", "../public/images/gallows+torso+arm.jpg", "../public/images/gallows+torso+leg.jpg"]
+let imageIndex = 0
+
+function createImage() {
+    // always render the base image
+    let attachImage = document.getElementById('hangman_image')
+    attachImage.src = images[imageIndex]
+    console.log("attachImage.src", attachImage.src)
+    // get the the next image up ready to be rendered
+    imageIndex += 1
+}
+createImage()
 
 // Generate lines for the answer
 function generate_horizontal_lines() {
     answer_arr = answer.split("")
-    console.log("answer_arr.length inside generate_horizontal_lines", answer_arr.length)
-    console.log("answer.length inside generate_horizontal_lines", answer.length)
-    for (i=0; i<answer.length; i++) {
+    answerLengthPlusOne = answer.length + 1
+    for (i=0; i<answerLengthPlusOne; i++) {
         const horizontal_lines = document.querySelector('.horizontal_lines')
         let spans = horizontal_lines.appendChild(document.createElement('span'));
         spans.innerHTML = "_"
@@ -90,7 +102,7 @@ function checkAnswer(guess) {
                 loopThroughSpans(guess, guessedLetterArrFixedIndices)
             }
             else {
-                console.log("LETTER WRONG inside renderLetterToDom")
+                console.log("WRONG LeETTER inside renderLetterToDom")
             }
     
         }
@@ -106,7 +118,6 @@ function checkAnswer(guess) {
                 matcher(guessedLetterArrFixedIndices, grabSpans)
             }
         }
-
     }
     
     function matcher(guessedLetterArrFixedIndices, grabSpans) {
@@ -127,10 +138,6 @@ function checkAnswer(guess) {
     }
 }
 
-function processAdditionalIndex(indexArr) {
-    console.log("indexArr", indexArr)
-}
-
 // Lives Check
 function livesChecker(minus_a_life) {
     let default_lives = 10
@@ -140,9 +147,6 @@ function livesChecker(minus_a_life) {
     }
     console.log(`The player has ${default_lives} remaining`)
 }
-
-
-const allButtons = document.querySelectorAll('.button')
 
 allButtons.forEach(button => {
     let eventListener = (event) => {

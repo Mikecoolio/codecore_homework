@@ -9,6 +9,8 @@ let answer = "system"
 // Generate lines for the answer
 function generate_horizontal_lines() {
     answer_arr = answer.split("")
+    console.log("answer_arr.length inside generate_horizontal_lines", answer_arr.length)
+    console.log("answer.length inside generate_horizontal_lines", answer.length)
     for (i=0; i<answer.length; i++) {
         const horizontal_lines = document.querySelector('.horizontal_lines')
         let spans = horizontal_lines.appendChild(document.createElement('span'));
@@ -27,8 +29,7 @@ for (i=0;i<alphabet.length;i++) {
     guess_the_word_header.appendChild(document.createElement('button')).innerText = alphabet[i].toUpperCase()
 }
 
-
-
+// Give class name to "button" to each button
 const buttons = document.querySelectorAll('button')
 buttons.forEach(button => {
     button.className = 'button'
@@ -39,6 +40,7 @@ let spans = document.getElementsByTagName('span')
 for (i=0;i<spans.length;i++) {
     spans[i].className = 'span'
 }
+
 
 const make_clickable = document.getElementsByClassName('button')
 for (i=0;i<make_clickable.length;i++) {
@@ -53,20 +55,15 @@ function checkAnswer(guess) {
     let charcodesArr = []
     let indexOfGuessedLetterArr = []
 
-    // console.log(`The guess is ${guess}`)
-    splitted_answer = answer.split('')
+    let splitted_answer = answer.split('')
 
     // Convert each string into charcode and put it into the charcodesArr
     for(let i = 0; i < splitted_answer.length; i++) {
         charcodesArr.push(splitted_answer[i].charCodeAt(splitted_answer[i])) 
-        // console.log("charcodesArr", charcodesArr)   
     }
-    // console.log("ArrForConvertingFromCharcodeToStr", ArrForConvertingFromCharcodeToStr)
-
 
     for(i=0; i<splitted_answer.length; i++) {
         if(guess === splitted_answer[i]) {
-            // console.log("RIGHT LETTER", guess)
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
             let findLetter = guess
             let regexSearch = new RegExp(findLetter, 'gi')
@@ -103,38 +100,35 @@ function checkAnswer(guess) {
     function loopThroughSpans(letter, guessedLetterArrFixedIndices) {
         let grabSpans = document.getElementsByTagName('span')
         let spanIdStringToInt = parseInt(grabSpans[i].id)
-
-        console.log("typeof letter", typeof letter) // string
-        console.log("LETTER INSIDE loopThroughSpans()", letter) // y
         for (i=0; i<grabSpans.length; i++) {
-            if (guessedLetterArrFixedIndices[i - 1] != undefined) {
-                // console.log("guessedLetterArrFixedIndices", guessedLetterArrFixedIndices[i - 1])
-                
-                // console.log("grabSpans[i] inside grabSpanId()", spanIdStringToInt)
-                if (spanIdStringToInt.id != undefined) {
-                    // console.log("grabSpans[i].id inside grabSpanId()", spanIdStringToInt.id)
-                    // console.log("typeof grabSpans[i].id", typeof spanIdStringToInt.id)
-    
-                }
+            if (guessedLetterArrFixedIndices[i] != undefined || spanIdStringToInt.id != undefined) {
+                console.log("guessedLetterArrFixedIndices inside loopThroughSpans before sending to matcher", guessedLetterArrFixedIndices)
+                matcher(guessedLetterArrFixedIndices, grabSpans)
+            }
+        }
 
-                matcher(guessedLetterArrFixedIndices[i - 1], spanIdStringToInt)
+    }
+    
+    function matcher(guessedLetterArrFixedIndices, grabSpans) {
+        for (i=0; i<grabSpans.length; i++) {
+            console.log("grabSpans[i]", grabSpans[i])
+            for (j=0; j<guessedLetterArrFixedIndices.length; j++) {
+                if (guessedLetterArrFixedIndices[i] != undefined) {
+                    console.log("guessedLetterArrFixedIndices inside for loop inside if statement", guessedLetterArrFixedIndices[i])
+                    console.log("guess", guess)
+                         
+                    findExactSpan = document.getElementById(guessedLetterArrFixedIndices[i])
+                    console.log("findExactSpan inside matcher", findExactSpan)
+                    console.log("findExactSpan.id", findExactSpan.id)
+                    findExactSpan.innerText = guess
+                }
             }
         }
     }
-    
+}
 
-    function matcher(guessedLetterArrFixedIndices, spanId) {
-        // console.log("spanId inside matcher", spanId) // 1
-        // console.log("typeof spanId inside matcher", typeof spanId)
-        // console.log("guessedLetterArrFixedIndices inside matcher", guessedLetterArrFixedIndices) // 1
-        // console.log("typeof guessedLetterArrFixedIndices", typeof guessedLetterArrFixedIndices) // number
-
-        let findSpanId = document.getElementById(spanId)
-        console.log("guessedLetterArrFixedIndices inside matcher", guessedLetterArrFixedIndices)
-        console.log("findSpanId inside matcher", findSpanId)
-        findSpanId.innerText = guess
-
-    }
+function processAdditionalIndex(indexArr) {
+    console.log("indexArr", indexArr)
 }
 
 // Lives Check

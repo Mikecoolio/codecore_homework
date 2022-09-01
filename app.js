@@ -3,21 +3,30 @@ let result = []
 alphabet = alphabet.toUpperCase()
 alphabet = alphabet.split('')
 str = '\u0073\u0332' // = 's̲'
-const allButtons = document.querySelectorAll('.button')
 let answer = "system"
 let images = ["../public/images/gallows.jpg", "../public/images/gallows+head.jpg", "../public/images/gallows+head+torso.jpg",
- "../public/images/gallows+torso+2leg.jpg", "../public/images/gallows+torso+2leg+2arm.jpg", "../public/images/gallows+torso+arm.jpg", "../public/images/gallows+torso+leg.jpg"]
+"../public/images/gallows+head+torso+leg.jpg", "../public/images/gallows+head+torso+2leg.jpg", "../public/images/gallows+head+torso+2leg+arm.jpg", "../public/images/gallows+head+torso+2leg+2arm.jpg"]
 let imageIndex = 0
 
 function createImage() {
-    // always render the base image
     let attachImage = document.getElementById('hangman_image')
+    // always render the base image
     attachImage.src = images[imageIndex]
     console.log("attachImage.src", attachImage.src)
     // get the the next image up ready to be rendered
     imageIndex += 1
+
+    let lostAudio = new Audio("../public/sound/mixkit-arcade-fast-game-over-233.wav")
+
+    console.log("[imageIndex]", imageIndex)
+    console.log("images.length", images.length)
+    if (imageIndex === images.length) {
+        console.log("OH NOVOS YOU LOST")
+        setTimeout(function() {
+            lostAudio.play()
+        }, 500)
+    }
 }
-createImage()
 
 // Generate lines for the answer
 function generate_horizontal_lines() {
@@ -66,7 +75,6 @@ for (i=0;i<make_clickable.length;i++) {
 function checkAnswer(guess) {
     let charcodesArr = []
     let indexOfGuessedLetterArr = []
-
     let splitted_answer = answer.split('')
 
     // Convert each string into charcode and put it into the charcodesArr
@@ -74,67 +82,61 @@ function checkAnswer(guess) {
         charcodesArr.push(splitted_answer[i].charCodeAt(splitted_answer[i])) 
     }
 
-    for(i=0; i<splitted_answer.length; i++) {
-        if(guess === splitted_answer[i]) {
-            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-            let findLetter = guess
-            let regexSearch = new RegExp(findLetter, 'gi')
-        
-            // Grab the index/indices of the guessed letter
-            while(regexSearch.exec(answer)) {
-                indexOfGuessedLetterArr.push(regexSearch.lastIndex)      
-            }
-            // Grab the unique chars
-            var uniqueChars = [...new Set(indexOfGuessedLetterArr)];
-            // the line below sets the answer to the html elem
-        }
-        else {
-            console.log("WRONG LETTER inside checkAnswer")       
-        }
-    }
-
-
-    function renderLetterToDom() {
-        for(i=0; i<splitted_answer.length; i++) {       
+    if (answer.includes(guess)) {
+        for(i=0; i<splitted_answer.length; i++) {
             if(guess === splitted_answer[i]) {
-                var guessedLetterArrFixedIndices = uniqueChars.map(index => index - 1)
-
-                loopThroughSpans(guess, guessedLetterArrFixedIndices)
-            }
-            else {
-                console.log("WRONG LeETTER inside renderLetterToDom")
-            }
-    
-        }
-    }
-    renderLetterToDom()
-
-    function loopThroughSpans(letter, guessedLetterArrFixedIndices) {
-        let grabSpans = document.getElementsByTagName('span')
-        let spanIdStringToInt = parseInt(grabSpans[i].id)
-        for (i=0; i<grabSpans.length; i++) {
-            if (guessedLetterArrFixedIndices[i] != undefined || spanIdStringToInt.id != undefined) {
-                console.log("guessedLetterArrFixedIndices inside loopThroughSpans before sending to matcher", guessedLetterArrFixedIndices)
-                matcher(guessedLetterArrFixedIndices, grabSpans)
-            }
-        }
-    }
-    
-    function matcher(guessedLetterArrFixedIndices, grabSpans) {
-        for (i=0; i<grabSpans.length; i++) {
-            console.log("grabSpans[i]", grabSpans[i])
-            for (j=0; j<guessedLetterArrFixedIndices.length; j++) {
-                if (guessedLetterArrFixedIndices[i] != undefined) {
-                    console.log("guessedLetterArrFixedIndices inside for loop inside if statement", guessedLetterArrFixedIndices[i])
-                    console.log("guess", guess)
-                         
-                    findExactSpan = document.getElementById(guessedLetterArrFixedIndices[i])
-                    console.log("findExactSpan inside matcher", findExactSpan)
-                    console.log("findExactSpan.id", findExactSpan.id)
-                    findExactSpan.innerText = guess
+                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+                let findLetter = guess
+                let regexSearch = new RegExp(findLetter, 'gi')
+            
+                // Grab the index/indices of the guessed letter
+                while(regexSearch.exec(answer)) {
+                    indexOfGuessedLetterArr.push(regexSearch.lastIndex)      
                 }
+                // Grab the unique chars
+                var uniqueChars = [...new Set(indexOfGuessedLetterArr)];
+                // the line below sets the answer to the html elem
+                var guessedLetterArrFixedIndices = uniqueChars.map(index => index - 1)
+    
+                loopThroughSpans(guessedLetterArrFixedIndices)
             }
         }
+    }
+    else {
+        console.log("WRONG LETTER inside checkAnswer")  
+        createImage()    
+        console.log("createImage", createImage)
+    }
+}
+
+function loopThroughSpans(guessedLetterArrFixedIndices) {
+    let grabSpans = document.getElementsByTagName('span')
+    let spanIdStringToInt = parseInt(grabSpans[i].id)
+    for (i=0; i<grabSpans.length; i++) {
+        if (guessedLetterArrFixedIndices[i] != undefined || spanIdStringToInt.id != undefined) {
+            // console.log("guessedLetterArrFixedIndices inside loopThroughSpans before sending to matcher", guessedLetterArrFixedIndices)
+            matcher(guessedLetterArrFixedIndices, grabSpans)
+        }
+    }
+}
+
+function matcher(guessedLetterArrFixedIndices, grabSpans) {
+    for (i=0; i<grabSpans.length; i++) {
+        console.log("grabSpans[i]", grabSpans[i])
+        for (j=0; j<guessedLetterArrFixedIndices.length; j++) {
+            if (guessedLetterArrFixedIndices[i] != undefined) {
+                // console.log("guessedLetterArrFixedIndices inside for loop inside if statement", guessedLetterArrFixedIndices[i])
+                // console.log("guess", guess)
+                     
+                findExactSpan = document.getElementById(guessedLetterArrFixedIndices[i])
+                // console.log("findExactSpan inside matcher", findExactSpan)
+                // console.log("findExactSpan.id", findExactSpan.id)
+                findExactSpan.innerText = guess
+            }
+        }
+    }
+    for (i = 0; i < spans.length; i++) {
+        console.log("SPANS INNER TEXT", spans[i].innerText)
     }
 }
 
@@ -148,6 +150,7 @@ function livesChecker(minus_a_life) {
     console.log(`The player has ${default_lives} remaining`)
 }
 
+const allButtons = document.querySelectorAll('.button')
 allButtons.forEach(button => {
     let eventListener = (event) => {
         button.style.backgroundColor = 'orange'

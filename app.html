@@ -8,12 +8,17 @@
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
-    <h1>Hangman</h1>
-    <h4 class="guess_the_word_header">Guess the word:</h4>
-    <p class="horizontal_lines">The answer goes here</p>
-    <div>
-        <img id="hangman_image" />
+    <div id="container">
+        <h1 id="title">Hangman</h1>
+        <p>Theme: Random Animals from Earth</p>
+        <h4 id="lives">Lives: </h4>
+        <h4 class="guess_the_word_header"></h4>
+        <p class="horizontal_lines">Answer: </p>
+        <div>
+            <img id="hangman_image" class="load_base_img" />
+        </div>
     </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="app.js"></script>

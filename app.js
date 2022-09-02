@@ -1,36 +1,41 @@
 let alphabet = 'abcdefghijklmnopqrstuvwxyz';
-let result = []
 alphabet = alphabet.toUpperCase()
 alphabet = alphabet.split('')
-str = '\u0073\u0332' // = 's̲'
-let answer = "system"
+let words = ["BARRACUDA", "BUMBLEBEE", "SEAHORSE", "BADGER", "JAGUAR", "STARFISH", "PELICAN", "ALBATROSS", "BLOWFISH", "CRICKET", "STALLION", "HUMMINGBIRD"]
+let answer = words[Math.floor(Math.random() * words.length)]
+console.log("answer: " + answer)
 let images = ["../public/images/gallows.jpg", "../public/images/gallows+head.jpg", "../public/images/gallows+head+torso.jpg",
 "../public/images/gallows+head+torso+leg.jpg", "../public/images/gallows+head+torso+2leg.jpg", "../public/images/gallows+head+torso+2leg+arm.jpg", "../public/images/gallows+head+torso+2leg+2arm.jpg"]
+let lives = images.length
+console.log("lives", lives)
+let attachImage = document.getElementById('hangman_image')
 let imageIndex = 0
 
-function createImage() {
-    let attachImage = document.getElementById('hangman_image')
-    // always render the base image
+if (imageIndex === 0) {
     attachImage.src = images[imageIndex]
-    console.log("attachImage.src", attachImage.src)
-    // get the the next image up ready to be rendered
     imageIndex += 1
+}
+console.log("imageIndex", imageIndex)
 
+function createImage() {
+    attachImage.src = images[imageIndex]
+    imageIndex += 1
+    
     let lostAudio = new Audio("../public/sound/mixkit-arcade-fast-game-over-233.wav")
 
-    console.log("[imageIndex]", imageIndex)
-    console.log("images.length", images.length)
+    console.log("imageIndex within createImage()", imageIndex)
+    console.log("images.length within createImage()", images.length)
+
     if (imageIndex === images.length) {
-        console.log("OH NOVOS YOU LOST")
         setTimeout(function() {
             lostAudio.play()
+            alert("OH NOVOS YOU LOST")
         }, 500)
     }
 }
 
 // Generate lines for the answer
 function generate_horizontal_lines() {
-    answer_arr = answer.split("")
     answerLengthPlusOne = answer.length + 1
     for (i=0; i<answerLengthPlusOne; i++) {
         const horizontal_lines = document.querySelector('.horizontal_lines')
@@ -66,7 +71,7 @@ for (i=0;i<spans.length;i++) {
 const make_clickable = document.getElementsByClassName('button')
 for (i=0;i<make_clickable.length;i++) {
     make_clickable[i].onclick = function(elem){
-        guess = this.innerHTML.toLowerCase()
+        guess = this.innerHTML.toUpperCase()
         checkAnswer(guess)
     }
 }
@@ -95,8 +100,7 @@ function checkAnswer(guess) {
                 }
                 // Grab the unique chars
                 var uniqueChars = [...new Set(indexOfGuessedLetterArr)];
-                // the line below sets the answer to the html elem
-                var guessedLetterArrFixedIndices = uniqueChars.map(index => index - 1)
+                let guessedLetterArrFixedIndices = uniqueChars.map(index => index - 1)
     
                 loopThroughSpans(guessedLetterArrFixedIndices)
             }
@@ -105,7 +109,7 @@ function checkAnswer(guess) {
     else {
         console.log("WRONG LETTER inside checkAnswer")  
         createImage()    
-        console.log("createImage", createImage)
+        // console.log("createImage", createImage)
     }
 }
 
@@ -121,6 +125,8 @@ function loopThroughSpans(guessedLetterArrFixedIndices) {
 }
 
 function matcher(guessedLetterArrFixedIndices, grabSpans) {
+    let answerContainer = []
+
     for (i=0; i<grabSpans.length; i++) {
         console.log("grabSpans[i]", grabSpans[i])
         for (j=0; j<guessedLetterArrFixedIndices.length; j++) {
@@ -136,18 +142,22 @@ function matcher(guessedLetterArrFixedIndices, grabSpans) {
         }
     }
     for (i = 0; i < spans.length; i++) {
-        console.log("SPANS INNER TEXT", spans[i].innerText)
+        // console.log("SPANS INNER TEXT", spans[i].innerText)
+        if (spans[i].innerText != "_") {
+            console.log(`${spans[i].innerText} DOES NOT EQUAL _`)
+            answerContainer.push(1)
+        }
     }
-}
-
-// Lives Check
-function livesChecker(minus_a_life) {
-    let default_lives = 10
-
-    if (minus_a_life === 1) {
-        default_lives -= 1
+    console.log("answerContainer", answerContainer)
+    console.log("answerContainer.length", answerContainer.length)
+    console.log("answer.length", answer.length)
+    let wonAudio = new Audio("../public/sound/mixkit-male-voice-cheer-2010.wav")
+    if (answerContainer.length === answer.length) {
+        setTimeout(function() {
+            wonAudio.play()
+            alert("You have won the game")
+        }, 500)
     }
-    console.log(`The player has ${default_lives} remaining`)
 }
 
 const allButtons = document.querySelectorAll('.button')
@@ -161,3 +171,4 @@ allButtons.forEach(button => {
 $('.button').on('click', function(event) {
     event.preventDefault()
 })
+

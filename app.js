@@ -3,7 +3,6 @@ alphabet = alphabet.toUpperCase()
 alphabet = alphabet.split('')
 const words = ["BARRACUDA", "BUMBLEBEE", "SEAHORSE", "BADGER", "JAGUAR", "STARFISH", "PELICAN", "ALBATROSS", "BLOWFISH", "CRICKET", "STALLION", "HUMMINGBIRD"]
 const answer = words[Math.floor(Math.random() * words.length)]
-console.log(answer)
 const images = ["../public/images/gallows.jpg", "../public/images/gallows+head.jpg", "../public/images/gallows+head+torso.jpg",
 "../public/images/gallows+head+torso+leg.jpg", "../public/images/gallows+head+torso+2leg.jpg", "../public/images/gallows+head+torso+2leg+arm.jpg", "../public/images/gallows+head+torso+2leg+2arm.jpg"]
 const lives = images.length
@@ -32,7 +31,7 @@ function createImage() {
             lostAudio.play()
             alert("Oh no you have lost the game!")
             disableGameWhenLost()
-        }, 500)
+        }, 100)
     }
 }
 
@@ -153,7 +152,7 @@ function matcher(guessedLetterArrFixedIndices, grabSpans) {
             wonAudio.play()
             alert("You have won the game")
             disableGameWhenLost()
-        }, 500)
+        }, 100)
     }
 }
 

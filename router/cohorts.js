@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
     })
     .returning('*')
     .then(cohorts => {
-        const cohort = cohorts
+        const cohort = cohorts[0]
         res.redirect(`cohorts/${cohort.id}`)
     })
 })
